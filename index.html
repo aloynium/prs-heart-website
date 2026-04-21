@@ -4,526 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Heart Health Companion — Polygenic Risk Score</title>
-<meta name="description" content="Understand your genetic risk for heart disease and learn how to take action. A companion resource for PRS report recipients at TTSH Singapore.">
+<meta name="description" content="Understand your genetic risk for heart disease and learn how to take action.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-XXXXXXXXXX');
-
-// Track risk category on page load
-(function(){
-  var sp = new URLSearchParams(window.location.search);
-  var p = parseInt(sp.get('p')) || 0;
-  var t = sp.get('t');
-  var relRisk = p >= 80 ? 'high' : 'average';
-  var absRisk = t === null ? 'diabetes_pathway' : (parseInt(t) > 20 ? 'high' : (parseInt(t) >= 10 ? 'intermediate' : 'normal'));
-  gtag('event', 'page_view_with_risk', {
-    relative_risk: relRisk,
-    absolute_risk: absRisk,
-    percentile: p,
-    ten_year: t
-  });
-})();
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-XXXXXXXXXX');
+(function(){var sp=new URLSearchParams(window.location.search);var p=parseInt(sp.get('p'))||0,t=sp.get('t');
+gtag('event','page_view_with_risk',{relative_risk:p>=80?'high':'average',absolute_risk:t===null?'diabetes_pathway':(parseInt(t)>20?'high':(parseInt(t)>=10?'intermediate':'normal')),percentile:p,ten_year:t});})();
 </script>
-
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --c-body: #1a1a1a;
-  --c-sub: #2d2d2d;
-  --c-mid: #555;
-  --c-light: #888;
-  --c-green: #0d6b52;
-  --c-green-bg: #e4f5ef;
-  --c-green-light: #b9e5d4;
-  --c-red: #b71c1c;
-  --c-red-bg: #ffeaea;
-  --c-orange: #e65100;
-  --c-orange-bg: #fff3e0;
-  --c-purple: #4a148c;
-  --c-blue: #0d47a1;
-  --c-blue-bg: #e3f0fc;
-  --c-divider: #8a7f73;
-  --c-divider-light: #d5cfc7;
-  --c-bg: #faf8f5;
-  --c-card: #ffffff;
-  --c-warm: #f5f0eb;
-  --font-body: 'Nunito Sans', 'Segoe UI', Arial, sans-serif;
-  --font-heading: 'Nunito', 'Segoe UI', Arial, sans-serif;
-  --max-w: 640px;
-  --r: 14px;
-}
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body {
-  font-family: var(--font-body);
-  color: var(--c-body);
-  background: var(--c-bg);
-  line-height: 1.65;
-  font-size: 17px;
-  -webkit-font-smoothing: antialiased;
-}
-h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.3; }
-img { max-width: 100%; height: auto; }
-input[type=number] {
-  font-family: var(--font-body);
-  font-size: 18px;
-  padding: 10px 14px;
-  border: 2px solid var(--c-divider-light);
-  border-radius: 10px;
-  width: 100%;
-  max-width: 200px;
-  color: var(--c-body);
-  background: #fff;
-  outline: none;
-  transition: border-color 0.2s;
-}
-input[type=number]:focus { border-color: var(--c-blue); }
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-input[type=number] { -moz-appearance: textfield; }
-button { cursor: pointer; font-family: var(--font-body); }
-a { color: var(--c-blue); }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--c-divider-light); border-radius: 3px; }
-
-/* Section observer animation */
-.section-wrap { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.section-wrap.visible { opacity: 1; transform: translateY(0); }
-
-@media (max-width: 420px) {
-  body { font-size: 16px; }
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:'Nunito Sans','Segoe UI',Arial,sans-serif;background:#fefcf8;color:#111;margin:0;}
+input[type=number]{font-family:'Nunito Sans','Segoe UI',Arial,sans-serif;}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+input[type=number]{-moz-appearance:textfield;}
+button{cursor:pointer;font-family:'Nunito Sans','Segoe UI',Arial,sans-serif;}
+a{color:#0d47a1;}
 </style>
 </head>
 <body>
-<div id="root">
-  <div style="max-width:640px;margin:60px auto;padding:0 20px;text-align:center;font-family:Arial,sans-serif;color:#555">
-    <p style="font-size:18px">Loading Heart Health Companion…</p>
-    <p style="font-size:14px;margin-top:12px">If this page does not load, please try refreshing or using a different browser (Chrome, Safari, or Edge).</p>
-  </div>
-</div>
-
-<script>
-// Global error handler — if React fails to mount, show diagnostic info
-window.onerror = function(msg, src, line, col, err) {
-  var root = document.getElementById('root');
-  if (root && !root.querySelector('[data-reactroot]')) {
-    root.innerHTML = '<div style="max-width:640px;margin:60px auto;padding:20px;font-family:Arial,sans-serif">' +
-      '<h2 style="color:#b71c1c">Something went wrong</h2>' +
-      '<p style="color:#555">This page could not load properly. Please try:</p>' +
-      '<ul style="color:#555;margin:12px 0"><li>Refreshing the page</li><li>Using Chrome, Safari, or Edge</li><li>Checking your internet connection</li></ul>' +
-      '<p style="color:#999;font-size:12px;margin-top:20px">Error: ' + msg + ' (line ' + line + ')</p></div>';
-  }
-};
-</script>
-
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js" onerror="document.getElementById('root').innerHTML='<p style=\'text-align:center;padding:60px 20px;font-family:Arial;color:#b71c1c\'>Failed to load required scripts. Please check your internet connection and refresh.</p>'"></script>
+<div id="root"><div style="max-width:640px;margin:60px auto;padding:0 20px;text-align:center;font-family:Arial,sans-serif;color:#555"><p style="font-size:18px">Loading Heart Health Companion…</p><p style="font-size:14px;margin-top:12px">If this page does not load, please try refreshing or using a different browser.</p></div></div>
+<script>window.onerror=function(msg,src,line){var r=document.getElementById('root');if(r&&!r.querySelector('[data-reactroot]'))r.innerHTML='<div style="max-width:640px;margin:60px auto;padding:20px;font-family:Arial"><h2 style="color:#b71c1c">Something went wrong</h2><p>Please try refreshing or using Chrome/Safari/Edge.</p><p style="color:#999;font-size:12px;margin-top:20px">Error: '+msg+' (line '+line+')</p></div>';};</script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
-
 <script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
+const {useState, useEffect} = React;
 
-// ═══════════════════════════════════════════════
-// TRANSLATIONS — English + Chinese (Draft)
-// ═══════════════════════════════════════════════
-const T = {
-en: {
-  langLabel: "中文",
-  nav: {
-    genes: "Genes & Health",
-    score: "Your Score",
-    action: "Take Action",
-    numbers: "Your Numbers",
-    plate: "Healthy Plate",
-    faq: "FAQ"
-  },
-  welcome: {
-    avg: {
-      title: "Your Genetic Risk is in the Lower-to-Average Range",
-      subtitle: "That's reassuring — and there's plenty you can do to keep it that way.",
-      cta: "See what you can do"
-    },
-    high: {
-      title: "Your Genetic Risk is Higher Than Average",
-      subtitle: "This doesn't mean you will develop heart disease — it means taking action now matters even more.",
-      cta: "Take action today"
-    },
-    fallback: {
-      title: "Understanding Your Heart Health",
-      subtitle: "Learn how your genes and lifestyle work together to influence your heart disease risk.",
-      cta: "Explore your results"
-    }
-  },
-  riskResults: {
-    sectionTitle: "Your Risk Results",
-    absTitle: "Your 10-Year Risk",
-    absExplain: "Based on your health indicators, about {risk} out of 100 people with a similar profile may develop heart disease in the next 10 years.",
-    absNote: "This number can change — if your health improves, this number can go down.",
-    relTitle: "Your Genetic Risk",
-    relAvgText: "Your genetic percentile is {p}th. This means your genetic risk for heart disease is in the lower-to-average range compared to the general population.",
-    relHighText: "Your genetic percentile is {p}th. This means your genetic risk for heart disease is higher than average compared to the general population.",
-    relNote: "Genes are only one part of your overall heart disease risk. Medicines and healthy habits can lower your overall risk.",
-    bellLower: "Lower\nGenetic Risk",
-    bellAverage: "Average\nGenetic Risk",
-    bellHigher: "Higher\nGenetic Risk",
-    bellYou: "You: {p}th percentile",
-    diabetesNote: "Check how meals and activity affect your blood sugar."
-  },
-  genes: {
-    sectionTitle: "How Genes Affect Heart Health",
-    dna: {
-      title: "What is DNA?",
-      text: "You inherit DNA from both parents. DNA is like an instruction book for your body, written in \"letters.\" Small differences in these letters make each person unique."
-    },
-    prs: {
-      title: "What is a Polygenic Risk Score?",
-      text: "Scientists look at many small differences across your DNA. Each one has a tiny effect. Added together, they give a picture of your genetic risk for certain conditions — this is your polygenic risk score (PRS)."
-    },
-    link: {
-      title: "How are Genes Linked to Heart Disease?",
-      text: "Some gene differences can affect cholesterol levels, blood pressure, or how your blood vessels work. No single gene causes heart disease. It is the combined effect of many genes, together with your lifestyle, that shapes your risk."
-    },
-    important: "Your genes are only one part of the picture. What you eat, how much you move, and whether you take your medications — these all have a big impact on your heart health."
-  },
-  action: {
-    sectionTitle: "Take Action for Your Heart",
-    introAvg: "Your genetic risk is in the average range — great news. These habits will help you keep it that way.",
-    introHigh: "Your genetic risk is higher than average, but there is a lot you can do. Many people with higher genetic risk stay heart-healthy by following these steps.",
-    introFallback: "No matter your risk level, these steps can help protect your heart.",
-    medTitle: "💊 Continue Your Medication",
-    medText: "Take your medicines as prescribed by your doctor. Do not stop or change doses on your own. If you have side effects, talk to your doctor first.",
-    moveTitle: "🏃 Move More",
-    moveText: "Aim for 30 minutes of moderate exercise on most days, or 150 minutes per week. It's fine to break it up into 10-minute blocks.",
-    moveTips: [
-      { emoji: "🚶", text: "Take walks near your house — to the void deck or nearby supermarket" },
-      { emoji: "🪜", text: "Climb the stairs at or near your house instead of taking the lift" },
-      { emoji: "🌳", text: "Walk or jog at a nearby park or walkway" },
-      { emoji: "🚇", text: "Walk to the bus stop or MRT station" }
-    ],
-    eatTitle: "🥗 Eat Well",
-    eatText: "Follow the Healthy Plate for most meals: ½ vegetables and fruit, ¼ wholegrains, ¼ protein. See the \"Build a Healthy Plate\" section below to practise.",
-    sleepTitle: "😴 Sleep 7–9 Hours",
-    sleepText: "Good sleep helps your heart recover. Try to go to bed at the same time each night, and limit screen time before sleeping.",
-    avoidTitle: "🚫 Cut Down or Avoid",
-    avoidItems: [
-      { emoji: "🍟", text: "Deep-fried food — high in saturated fat" },
-      { emoji: "🍺", text: "Alcohol — limit to ≤2 standard drinks/day (men) or ≤1 (women)" },
-      { emoji: "🚬", text: "Smoking — ask your doctor about the \"I Quit\" programme" }
-    ]
-  },
-  numbers: {
-    sectionTitle: "Know Your Numbers",
-    intro: "Beyond genetics, these numbers are important for your heart health. You can enter your latest values to check how you are doing. No data is saved — values disappear when you close this page.",
-    disclaimer: "This is for your awareness only. Your doctor may set different targets based on your personal health. Please discuss your results with your doctor.",
-    indicators: [
-      {
-        key: "hba1c", emoji: "🩸", name: "HbA1c (Blood Sugar)", unit: "%",
-        desc: "Measures your average blood sugar over 3 months.",
-        why: "High blood sugar damages blood vessels over time, increasing heart disease risk.",
-        src: "Source: ACE T2DM Clinical Guidance (May 2023)"
-      },
-      {
-        key: "bp", emoji: "💓", name: "Blood Pressure (Systolic)", unit: "mmHg",
-        desc: "The top number — pressure when your heart beats.",
-        why: "High blood pressure makes your heart work harder and can damage arteries.",
-        src: "Source: ACE Hypertension Clinical Guidance (Dec 2023)"
-      },
-      {
-        key: "ldl", emoji: "🫀", name: "LDL Cholesterol", unit: "mmol/L",
-        desc: "Often called \"bad\" cholesterol — it can build up in your arteries.",
-        why: "High LDL cholesterol increases plaque in blood vessels, raising heart disease risk.",
-        src: "Source: ACE Lipid Management Clinical Guidance (Dec 2023)"
-      },
-      {
-        key: "egfr", emoji: "🫘", name: "Kidney Function (eGFR)", unit: "mL/min/1.73m²",
-        desc: "Measures how well your kidneys filter waste from your blood.",
-        why: "Poor kidney function is linked to higher heart disease risk.",
-        src: "Source: ACE CKD Clinical Guidance (Oct 2023)"
-      }
-    ],
-    good: "On track",
-    caution: "Talk to your doctor",
-    alert: "Needs attention",
-    invalid: "Please check — this value seems outside the expected range."
-  },
-  plate: {
-    sectionTitle: "Build a Healthy Plate",
-    intro: "Practise building a balanced meal using the My Healthy Plate guide. Tap a food item, then tap the correct section on the plate to place it.",
-    videoLink: "🍽️ My Healthy Plate — Watch video",
-    videoUrl: "https://www.youtube.com/watch?v=FOOD_VIDEO_ID",
-    step1: "Step 1: Tap a food item",
-    step2: "Step 2: Tap the correct plate section",
-    filterLabel: "Filter by food type:",
-    filterAll: "All",
-    filterChinese: "Chinese",
-    filterMalay: "Malay",
-    filterIndian: "Indian",
-    zones: {
-      veg: "½ Vegetables & Fruit",
-      grain: "¼ Rice, Noodles & Bread",
-      protein: "¼ Protein"
-    },
-    grainSub: "(wholegrains when possible)",
-    checkBtn: "Check my plate",
-    resetBtn: "Start over",
-    moderationNote: "These foods are not restricted — you can still enjoy them occasionally. The key is to watch your intake and consume them in moderation for better health.",
-    fbInfo: "👆 Select a food item first, then tap a plate section.",
-    fbWrong: "\"{name}\" belongs in {zone} — tap that section instead.",
-    fbFull: "That section is full (max {n} items).",
-    fbDupe: "Already on your plate.",
-    fbGood: "✅ \"{name}\" — {desc}.",
-    fbAvoid: "\"{name}\" is generally not a healthy-plate option, because {reason}",
-    fbDone: "🎉 Great job! {correct} healthy choice{s} placed{caught}. You built a balanced meal!",
-    fbIncomplete: "Your plate needs more items — keep going!",
-    itemsAdded: "{n} of {max} items added"
-  },
-  faq: {
-    sectionTitle: "Common Questions",
-    items: [
-      {
-        q: "Can I change my genetic risk?",
-        a: "No — your genes don't change. But your overall heart disease risk depends on many factors, including diet, exercise, and medication. Even with higher genetic risk, healthy habits can significantly lower your overall risk."
-      },
-      {
-        q: "Should my family members get tested?",
-        a: "Genetic risk can run in families. If you have a higher-than-average genetic risk, your family members may also benefit from testing. Talk to your doctor about whether genetic testing is suitable for your relatives."
-      },
-      {
-        q: "How accurate is this score?",
-        a: "Polygenic risk scores are estimated from large research studies. The score used in your report was adapted for the Singapore population using local data. Like any estimate, it is not a diagnosis — it shows your relative risk compared to others."
-      },
-      {
-        q: "What should I tell my doctor?",
-        a: "Bring your report to your next appointment. Your doctor can use it alongside your other health information (blood tests, blood pressure, medical history) to give you personalised advice."
-      },
-      {
-        q: "Where can I learn more?",
-        a: "Visit the resources at the bottom of this page, or ask your healthcare team at TTSH."
-      }
-    ]
-  },
-  footer: {
-    resourcesTitle: "Useful Resources",
-    resources: [
-      { name: "HealthHub — Healthy Living Tips", url: "https://www.healthhub.sg" },
-      { name: "Health Promotion Board — My Healthy Plate", url: "https://www.hpb.gov.sg/healthy-living/food-beverage/eating-well" },
-      { name: "PRECISE — National Precision Medicine", url: "https://www.npm.sg" },
-      { name: "Understanding Polygenic Risk Scores (NIH)", url: "https://www.genome.gov/Health/Genomics-and-Medicine/Polygenic-risk-scores" }
-    ],
-    disclaimer: "This website provides general health information and does not replace medical advice from your doctor. No personal data is collected or stored on this website.",
-    contact: "For more information about this study, please contact the research team at Tan Tock Seng Hospital.",
-    copyright: "© {year} Tan Tock Seng Hospital. For research and educational purposes."
-  }
-},
-
-zh: {
-  langLabel: "EN",
-  nav: {
-    genes: "基因与健康",
-    score: "您的评分",
-    action: "采取行动",
-    numbers: "健康指标",
-    plate: "健康餐盘",
-    faq: "常见问题"
-  },
-  welcome: {
-    avg: {
-      title: "您的基因风险处于一般水平",
-      subtitle: "这是好消息——您可以继续保持健康的生活习惯。",
-      cta: "看看您能做什么"
-    },
-    high: {
-      title: "您的基因风险高于一般水平",
-      subtitle: "这不代表您一定会得心脏病——而是说现在采取行动更加重要。",
-      cta: "立即采取行动"
-    },
-    fallback: {
-      title: "了解您的心脏健康",
-      subtitle: "了解基因和生活方式如何共同影响您的心脏病风险。",
-      cta: "查看您的结果"
-    }
-  },
-  riskResults: {
-    sectionTitle: "您的风险结果",
-    absTitle: "您的10年风险",
-    absExplain: "根据您的健康指标，100个和您情况类似的人中，大约有{risk}人可能在未来10年内患上心脏病。",
-    absNote: "这个数字可以改变——如果您的健康状况改善，这个数字可以下降。",
-    relTitle: "您的基因风险",
-    relAvgText: "您的基因百分位数是第{p}百分位。这意味着与一般人群相比，您的心脏病基因风险处于一般或较低水平。",
-    relHighText: "您的基因百分位数是第{p}百分位。这意味着与一般人群相比，您的心脏病基因风险高于一般水平。",
-    relNote: "基因只是心脏病总体风险的一部分。药物和健康习惯可以降低您的总体风险。",
-    bellLower: "较低\n基因风险",
-    bellAverage: "一般\n基因风险",
-    bellHigher: "较高\n基因风险",
-    bellYou: "您: 第{p}百分位",
-    diabetesNote: "注意观察饮食和运动如何影响您的血糖。"
-  },
-  genes: {
-    sectionTitle: "基因如何影响心脏健康",
-    dna: {
-      title: "什么是DNA（基因）？",
-      text: "您从父母双方继承了DNA。DNA就像身体的\"说明书\"，用\"字母\"写成。这些字母的微小差异让每个人都独一无二。"
-    },
-    prs: {
-      title: "什么是多基因风险评分？",
-      text: "科学家研究您DNA中的许多微小差异。每个差异的影响很小，但加在一起，就能了解您患某些疾病的基因风险——这就是您的多基因风险评分。"
-    },
-    link: {
-      title: "基因与心脏病有什么关系？",
-      text: "有些基因差异会影响胆固醇水平、血压或血管功能。没有单个基因会导致心脏病。是许多基因的综合作用，加上您的生活方式，共同决定了您的风险。"
-    },
-    important: "基因只是整体的一部分。您吃什么、运动多少、是否按时服药——这些都对心脏健康有很大的影响。"
-  },
-  action: {
-    sectionTitle: "为心脏健康采取行动",
-    introAvg: "您的基因风险在一般范围内——这是好消息。这些习惯能帮助您继续保持健康。",
-    introHigh: "虽然您的基因风险较高，但您可以做很多事情。许多基因风险较高的人通过以下步骤保持心脏健康。",
-    introFallback: "无论您的风险水平如何，这些步骤都能帮助保护您的心脏。",
-    medTitle: "💊 按时服药",
-    medText: "按照医生的处方服药，不要自行停药或更改剂量。如果有副作用，请先咨询医生。",
-    moveTitle: "🏃 多多运动",
-    moveText: "尽量每天做30分钟中等强度运动，或每周150分钟。可以分成10分钟一段来做。",
-    moveTips: [
-      { emoji: "🚶", text: "在住家附近散步——去组屋楼下或附近超市走走" },
-      { emoji: "🪜", text: "爬楼梯代替搭电梯" },
-      { emoji: "🌳", text: "去附近的公园或步道走路或慢跑" },
-      { emoji: "🚇", text: "走路到巴士站或地铁站" }
-    ],
-    eatTitle: "🥗 健康饮食",
-    eatText: "大多数餐食都按照\"健康餐盘\"的比例来吃：½ 蔬菜水果、¼ 全谷类（饭面等）、¼ 蛋白质。试试下面的\"组建健康餐盘\"活动来练习。",
-    sleepTitle: "😴 睡足 7–9 小时",
-    sleepText: "充足的睡眠有助于心脏恢复。尽量每天在同一时间入睡，睡前减少看手机。",
-    avoidTitle: "🚫 减少或避免",
-    avoidItems: [
-      { emoji: "🍟", text: "油炸食物——饱和脂肪含量高" },
-      { emoji: "🍺", text: "酒精——男性每天不超过2杯标准饮品，女性不超过1杯" },
-      { emoji: "🚬", text: "吸烟——可向医生了解\"我要戒烟\"计划" }
-    ]
-  },
-  numbers: {
-    sectionTitle: "了解您的健康指标",
-    intro: "除了基因，这些数字对心脏健康也很重要。您可以输入最近的检查数值来看看情况如何。不会保存任何数据——关闭网页后数值就会消失。",
-    disclaimer: "此功能仅供参考。您的医生可能会根据您的个人健康状况设定不同的目标。请与医生讨论您的检查结果。",
-    indicators: [
-      {
-        key: "hba1c", emoji: "🩸", name: "糖化血红蛋白 HbA1c（血糖）", unit: "%",
-        desc: "测量您过去3个月的平均血糖水平。",
-        why: "长期高血糖会损伤血管，增加心脏病风险。",
-        src: "来源: ACE 二型糖尿病临床指南 (2023年5月)"
-      },
-      {
-        key: "bp", emoji: "💓", name: "血压（收缩压）", unit: "mmHg",
-        desc: "上面的数字——心脏跳动时的压力。",
-        why: "高血压使心脏负担加重，还会损伤动脉。",
-        src: "来源: ACE 高血压临床指南 (2023年12月)"
-      },
-      {
-        key: "ldl", emoji: "🫀", name: "低密度胆固醇 LDL（\"坏\"胆固醇）", unit: "mmol/L",
-        desc: "常被称为\"坏\"胆固醇——会在动脉中积聚。",
-        why: "高LDL胆固醇会增加血管中的堵塞，提高心脏病风险。",
-        src: "来源: ACE 血脂管理临床指南 (2023年12月)"
-      },
-      {
-        key: "egfr", emoji: "🫘", name: "肾功能 (eGFR)", unit: "mL/min/1.73m²",
-        desc: "测量肾脏过滤废物的能力。",
-        why: "肾功能不好与较高的心脏病风险有关。",
-        src: "来源: ACE 慢性肾病临床指南 (2023年10月)"
-      }
-    ],
-    good: "正常范围",
-    caution: "请咨询医生",
-    alert: "需要关注",
-    invalid: "请核实——此数值似乎超出正常范围。"
-  },
-  plate: {
-    sectionTitle: "组建健康餐盘",
-    intro: "用\"我的健康餐盘\"指南来练习组建均衡一餐。点击一个食物，然后点击餐盘上正确的部分来放置它。",
-    videoLink: "🍽️ 我的健康餐盘——观看视频",
-    videoUrl: "https://www.youtube.com/watch?v=FOOD_VIDEO_ID",
-    step1: "第一步：点击一个食物",
-    step2: "第二步：点击餐盘上正确的部分",
-    filterLabel: "按食物类型筛选：",
-    filterAll: "全部",
-    filterChinese: "中式",
-    filterMalay: "马来式",
-    filterIndian: "印度式",
-    zones: {
-      veg: "½ 蔬菜水果",
-      grain: "¼ 饭、面、面包",
-      protein: "¼ 蛋白质"
-    },
-    grainSub: "（尽量选全谷类）",
-    checkBtn: "检查我的餐盘",
-    resetBtn: "重新开始",
-    moderationNote: "这些食物不是完全不能吃——偶尔吃是可以的。关键是要适量，以保持更好的健康。",
-    fbInfo: "👆 先选择一个食物，然后点击餐盘上的部分。",
-    fbWrong: "「{name}」应该放在 {zone} ——请点击那个部分。",
-    fbFull: "这个部分已满（最多{n}个）。",
-    fbDupe: "已经在餐盘上了。",
-    fbGood: "✅「{name}」——{desc}。",
-    fbAvoid: "「{name}」通常不是健康餐盘的选择，因为{reason}",
-    fbDone: "🎉 做得好！{correct}个健康食物已放置{caught}。您组建了一份均衡的一餐！",
-    fbIncomplete: "您的餐盘还需要更多食物——继续加油！",
-    itemsAdded: "已添加{n}/{max}个"
-  },
-  faq: {
-    sectionTitle: "常见问题",
-    items: [
-      {
-        q: "我能改变我的基因风险吗？",
-        a: "不能——基因不会改变。但您的整体心脏病风险取决于许多因素，包括饮食、运动和药物。即使基因风险较高，健康的生活习惯也能大大降低您的整体风险。"
-      },
-      {
-        q: "我的家人应该去检测吗？",
-        a: "基因风险可以在家族中遗传。如果您的基因风险较高，您的家人也可能从检测中受益。请与医生商讨基因检测是否适合您的亲属。"
-      },
-      {
-        q: "这个评分准确吗？",
-        a: "多基因风险评分来自大型研究。您报告中使用的评分已根据新加坡本地人口数据进行了调整。和所有估计值一样，它不是诊断——它显示的是您与其他人相比的相对风险。"
-      },
-      {
-        q: "我应该告诉医生什么？",
-        a: "把报告带到下次看诊。医生可以结合您的其他健康信息（如验血报告、血压、病史）给您个性化的建议。"
-      },
-      {
-        q: "在哪里可以了解更多？",
-        a: "请查看本页底部的资源链接，或咨询陈笃生医院的医疗团队。"
-      }
-    ]
-  },
-  footer: {
-    resourcesTitle: "有用的资源",
-    resources: [
-      { name: "HealthHub — 健康生活贴士", url: "https://www.healthhub.sg" },
-      { name: "健康促进局 — 我的健康餐盘", url: "https://www.hpb.gov.sg/healthy-living/food-beverage/eating-well" },
-      { name: "PRECISE — 国家精准医学计划", url: "https://www.npm.sg" },
-      { name: "了解多基因风险评分（美国NIH）", url: "https://www.genome.gov/Health/Genomics-and-Medicine/Polygenic-risk-scores" }
-    ],
-    disclaimer: "本网站提供一般健康信息，不能替代医生的医疗建议。本网站不收集或存储任何个人数据。",
-    contact: "如需了解更多关于本研究的信息，请联系陈笃生医院的研究团队。",
-    copyright: "© {year} 陈笃生医院。仅用于研究和教育目的。"
-  }
-}
-};
-
-// ═══════════════════════════════════════════════
-// FOOD DATA
-// ═══════════════════════════════════════════════
-const FOODS_DATA = {
-en: [
-  // Vegetables & Fruit
+const FOODS = [
   {id:"v1",name:"Leafy greens",desc:"Chye sim, kangkong, bayam",zone:"veg",cuisine:"all",emoji:"🥬"},
   {id:"v2",name:"Broccoli",desc:"Steamed or blanched",zone:"veg",cuisine:"all",emoji:"🥦"},
   {id:"v3",name:"Mixed vegetables",desc:"Stir-fry, lodeh, sambar",zone:"veg",cuisine:"all",emoji:"🥕"},
@@ -532,14 +43,12 @@ en: [
   {id:"v6",name:"Long beans",desc:"Stir-fried with garlic",zone:"veg",cuisine:"all",emoji:"🫛"},
   {id:"v7",name:"Fresh fruit",desc:"Papaya, watermelon, apple",zone:"veg",cuisine:"all",emoji:"🍎"},
   {id:"v8",name:"Cabbage",desc:"Stir-fried or coleslaw",zone:"veg",cuisine:"all",emoji:"🥗"},
-  // Grains
   {id:"g1",name:"Brown rice",desc:"Wholegrain rice",zone:"grain",cuisine:"all",emoji:"🍚"},
   {id:"g2",name:"Wholemeal bread",desc:"2 slices",zone:"grain",cuisine:"all",emoji:"🍞"},
   {id:"g3",name:"Chapati",desc:"Dry-cooked flatbread",zone:"grain",cuisine:"indian",emoji:"🫓"},
   {id:"g4",name:"Thosai",desc:"Thin fermented crepe",zone:"grain",cuisine:"indian",emoji:"🧇"},
   {id:"g5",name:"Plain bee hoon",desc:"Thin rice vermicelli",zone:"grain",cuisine:"chinese",emoji:"🍜"},
   {id:"g6",name:"Oats",desc:"Porridge or overnight",zone:"grain",cuisine:"all",emoji:"🥣"},
-  // Protein
   {id:"p1",name:"Steamed fish",desc:"Light, healthy protein",zone:"protein",cuisine:"all",emoji:"🐟"},
   {id:"p2",name:"Tofu",desc:"Steamed or braised",zone:"protein",cuisine:"all",emoji:"🧈"},
   {id:"p3",name:"Grilled chicken",desc:"Panggang or tandoori",zone:"protein",cuisine:"all",emoji:"🍗"},
@@ -548,808 +57,176 @@ en: [
   {id:"p6",name:"Tempeh",desc:"Fermented soybean",zone:"protein",cuisine:"malay",emoji:"🫘"},
   {id:"p7",name:"Eggs",desc:"Boiled or poached",zone:"protein",cuisine:"all",emoji:"🥚"},
   {id:"p8",name:"Steamed chicken",desc:"Without skin, sliced",zone:"protein",cuisine:"all",emoji:"🐔"},
-  // Unhealthy / avoid
-  {id:"x1",name:"Fried chicken",desc:"Deep-fried wing/cutlet",zone:"avoid",cuisine:"all",emoji:"🍗",why:"it is deep-fried — high in saturated fat. If possible, try grilled or steamed chicken instead."},
-  {id:"x2",name:"Char kway teow",desc:"Fried flat noodles",zone:"avoid",cuisine:"chinese",emoji:"🍳",why:"it is fried with lots of oil and lard. If possible, try plain bee hoon with soup instead."},
-  {id:"x3",name:"Nasi lemak",desc:"Coconut milk rice",zone:"avoid",cuisine:"malay",emoji:"🥥",why:"the rice is cooked in coconut milk, which is high in saturated fat. If possible, try plain rice with grilled fish instead."},
-  {id:"x4",name:"Roti prata",desc:"Fried bread with ghee",zone:"avoid",cuisine:"indian",emoji:"🥞",why:"it is made with lots of ghee and oil. If possible, try chapati (without oil) instead."},
-  {id:"x5",name:"Mee goreng",desc:"Fried noodles",zone:"avoid",cuisine:"malay",emoji:"🍝",why:"it is fried with oil and sweet sauce. If possible, try soup-based noodles instead."},
-  {id:"x6",name:"Curry puff",desc:"Deep-fried pastry",zone:"avoid",cuisine:"all",emoji:"🥟",why:"it is a deep-fried pastry high in fat. If possible, try steamed pau or fresh fruit as a snack."},
-  {id:"x7",name:"Fried tofu",desc:"Tahu goreng, deep-fried",zone:"avoid",cuisine:"all",emoji:"🍢",why:"deep-frying adds a lot of oil. If possible, try steamed or braised tofu instead."},
-  {id:"x8",name:"Fried carrot cake",desc:"Pan-fried radish cake",zone:"avoid",cuisine:"chinese",emoji:"🫕",why:"it is pan-fried with lots of oil. If possible, try steamed dim sum instead."}
-],
-zh: [
-  // Vegetables & Fruit
-  {id:"v1",name:"绿叶蔬菜",desc:"菜心、空心菜、苋菜",zone:"veg",cuisine:"all",emoji:"🥬"},
-  {id:"v2",name:"西兰花",desc:"蒸或焯",zone:"veg",cuisine:"all",emoji:"🥦"},
-  {id:"v3",name:"杂菜",desc:"炒杂菜、马来杂菜汤、印度咖喱菜",zone:"veg",cuisine:"all",emoji:"🥕"},
-  {id:"v4",name:"黄瓜",desc:"生吃、印度酸奶沙拉或腌渍",zone:"veg",cuisine:"all",emoji:"🥒"},
-  {id:"v5",name:"番茄",desc:"沙拉、印度酸辣汤或生吃",zone:"veg",cuisine:"all",emoji:"🍅"},
-  {id:"v6",name:"长豆",desc:"蒜蓉炒",zone:"veg",cuisine:"all",emoji:"🫛"},
-  {id:"v7",name:"新鲜水果",desc:"木瓜、西瓜、苹果",zone:"veg",cuisine:"all",emoji:"🍎"},
-  {id:"v8",name:"包菜",desc:"炒包菜或凉拌",zone:"veg",cuisine:"all",emoji:"🥗"},
-  // Grains
-  {id:"g1",name:"糙米饭",desc:"全谷类米饭",zone:"grain",cuisine:"all",emoji:"🍚"},
-  {id:"g2",name:"全麦面包",desc:"两片",zone:"grain",cuisine:"all",emoji:"🍞"},
-  {id:"g3",name:"印度薄饼",desc:"干烤薄饼（Chapati）",zone:"grain",cuisine:"indian",emoji:"🫓"},
-  {id:"g4",name:"印度煎饼",desc:"薄脆发酵饼（Thosai）",zone:"grain",cuisine:"indian",emoji:"🧇"},
-  {id:"g5",name:"米粉",desc:"清汤米粉",zone:"grain",cuisine:"chinese",emoji:"🍜"},
-  {id:"g6",name:"燕麦",desc:"燕麦粥",zone:"grain",cuisine:"all",emoji:"🥣"},
-  // Protein
-  {id:"p1",name:"蒸鱼",desc:"清淡健康的蛋白质",zone:"protein",cuisine:"all",emoji:"🐟"},
-  {id:"p2",name:"豆腐",desc:"蒸或焖",zone:"protein",cuisine:"all",emoji:"🧈"},
-  {id:"p3",name:"烤鸡",desc:"烤鸡或印度坦都里鸡",zone:"protein",cuisine:"all",emoji:"🍗"},
-  {id:"p4",name:"扁豆咖喱",desc:"印度扁豆汤（Dhal）",zone:"protein",cuisine:"indian",emoji:"🥘"},
-  {id:"p5",name:"烤鱼",desc:"烤鱼或煎鱼",zone:"protein",cuisine:"all",emoji:"🎣"},
-  {id:"p6",name:"天贝",desc:"发酵豆饼（Tempeh）",zone:"protein",cuisine:"malay",emoji:"🫘"},
-  {id:"p7",name:"鸡蛋",desc:"水煮蛋或荷包蛋",zone:"protein",cuisine:"all",emoji:"🥚"},
-  {id:"p8",name:"白切鸡",desc:"去皮，切片",zone:"protein",cuisine:"all",emoji:"🐔"},
-  // Unhealthy
-  {id:"x1",name:"炸鸡",desc:"油炸鸡翅/鸡排",zone:"avoid",cuisine:"all",emoji:"🍗",why:"它是油炸的——饱和脂肪含量高。如果可以，试试烤鸡或蒸鸡代替。"},
-  {id:"x2",name:"炒粿条",desc:"炒河粉",zone:"avoid",cuisine:"chinese",emoji:"🍳",why:"用大量油和猪油炒的。如果可以，试试清汤米粉代替。"},
-  {id:"x3",name:"椰浆饭",desc:"椰浆煮的饭",zone:"avoid",cuisine:"malay",emoji:"🥥",why:"饭是用椰浆煮的，饱和脂肪高。如果可以，试试白饭配烤鱼代替。"},
-  {id:"x4",name:"印度煎饼",desc:"酥油煎饼（Roti Prata）",zone:"avoid",cuisine:"indian",emoji:"🥞",why:"用大量酥油和油制作。如果可以，试试印度薄饼（Chapati，不加油）代替。"},
-  {id:"x5",name:"马来炒面",desc:"炒面（Mee Goreng）",zone:"avoid",cuisine:"malay",emoji:"🍝",why:"用油和甜酱炒的。如果可以，试试汤面代替。"},
-  {id:"x6",name:"咖喱角",desc:"油炸酥皮点心",zone:"avoid",cuisine:"all",emoji:"🥟",why:"是油炸的酥皮点心，脂肪含量高。如果可以，试试蒸包或新鲜水果当零食。"},
-  {id:"x7",name:"炸豆腐",desc:"油炸豆腐",zone:"avoid",cuisine:"all",emoji:"🍢",why:"油炸增加了很多油脂。如果可以，试试蒸或焖豆腐代替。"},
-  {id:"x8",name:"炒萝卜糕",desc:"炒菜头粿",zone:"avoid",cuisine:"chinese",emoji:"🫕",why:"用大量油煎的。如果可以，试试蒸点心代替。"}
-]
-};
+  {id:"x1",name:"Fried chicken",desc:"Deep-fried wing/cutlet",zone:"avoid",cuisine:"all",emoji:"🍗",reason:"deep-fried and high in saturated fat",alt:"grilled or steamed chicken"},
+  {id:"x2",name:"Char kway teow",desc:"Fried flat noodles",zone:"avoid",cuisine:"chinese",emoji:"🍳",reason:"fried with lots of oil and lard",alt:"plain bee hoon with soup"},
+  {id:"x3",name:"Nasi lemak",desc:"Coconut milk rice",zone:"avoid",cuisine:"malay",emoji:"🥥",reason:"rice cooked in coconut milk, high in saturated fat",alt:"plain rice with grilled fish"},
+  {id:"x4",name:"Roti prata",desc:"Fried bread with ghee",zone:"avoid",cuisine:"indian",emoji:"🥞",reason:"made with lots of ghee and oil",alt:"chapati (without oil)"},
+  {id:"x5",name:"Mee goreng",desc:"Fried noodles",zone:"avoid",cuisine:"malay",emoji:"🍝",reason:"fried with oil and sweet sauce",alt:"soup-based noodles"},
+  {id:"x6",name:"Curry puff",desc:"Deep-fried pastry",zone:"avoid",cuisine:"all",emoji:"🥟",reason:"a deep-fried pastry high in fat",alt:"steamed pau or fresh fruit"},
+  {id:"x7",name:"Fried tofu",desc:"Tahu goreng, deep-fried",zone:"avoid",cuisine:"all",emoji:"🍢",reason:"deep-fried and adds a lot of oil",alt:"steamed or braised tofu"},
+  {id:"x8",name:"Fried carrot cake",desc:"Pan-fried radish cake",zone:"avoid",cuisine:"chinese",emoji:"🫕",reason:"pan-fried with lots of oil",alt:"steamed dim sum"},
+];
+const BOUNDS={hba1c:[4,15],bp:[70,250],ldl:[0.5,10],egfr:[0,200]};const TH={hba1c:{g:7,a:8},bp:{g:130,a:140},ldl:{g:2.6,a:3.4},egfr:{g:60,a:30,inv:true}};function light(k,v){if(!v||v==="")return null;const n=parseFloat(v);if(isNaN(n))return null;const b=BOUNDS[k];if(n<b[0]||n>b[1])return"invalid";const t=TH[k];if(t.inv)return n>=t.g?"good":n>=t.a?"caution":"alert";return n<t.g?"good":n<=t.a?"caution":"alert";}
+const MOD_NOTE="These foods are not restricted — you can still enjoy them occasionally. The key is to watch your intake and consume them in moderation for better health.";
+const S={body:"#111",sub:"#222",mid:"#444",g:"#0d6b52",gbg:"#e4f5ef",r:"#b71c1c",rbg:"#ffeaea",o:"#e65100",obg:"#fff3e0",p:"#4a148c",bl:"#0d47a1",blbg:"#e3f0fc",div:"#a89f94",f:"'Nunito Sans','Segoe UI',Arial,sans-serif",h:"'Nunito','Segoe UI',Arial,sans-serif"};
+const HL={purple:"#1a0040",blue:"#0a1e50",orange:"#6e2400",green:"#003a28"};
+function Head({title,icon,suffix,sub}){return (<div style={{textAlign:"center",marginBottom:sub?8:18}}><div style={{display:"flex",alignItems:"center",gap:10,justifyContent:"center"}}><span style={{fontSize:30}}>{icon}</span><h2 style={{fontFamily:S.h,fontSize:24,fontWeight:900,color:S.body,margin:0}}>{title}{suffix&&<span style={{fontSize:16,fontWeight:600,color:S.mid,marginLeft:8}}>{suffix}</span>}</h2></div>{sub&&<div style={{fontSize:15,marginTop:4}}>{sub}</div>}</div>);}
+function Divider(){return (<div style={{height:2,background:S.div,margin:"0 20px"}}/>);}
+function Wrap({children,id}){return (<section id={id} style={{padding:"28px 20px",maxWidth:600,margin:"0 auto",textAlign:"center"}}>{children}</section>);}
+function Nav({onNav}){const its=[["genes","🧬 Genes"],["action","💪 Action"],["numbers","🔢 Numbers"],["plate","🍽️ Plate"],["faq","❓ FAQ"]];return (<nav style={{position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,0.97)",backdropFilter:"blur(8px)",borderBottom:`2px solid ${S.div}`,display:"flex",alignItems:"center",overflowX:"auto",padding:"0 10px",fontFamily:S.f}}><div style={{display:"flex",gap:3,flex:1,overflowX:"auto",padding:"9px 0"}}>{its.map(([id,l])=>(<button key={id} onClick={()=>onNav(id)} style={{padding:"7px 12px",border:"none",borderRadius:20,background:"transparent",color:S.sub,fontSize:14,fontWeight:700,cursor:"pointer",flexShrink:0,whiteSpace:"nowrap"}}>{l}</button>))}</div><button style={{padding:"5px 14px",border:`2px solid ${S.g}`,borderRadius:16,background:"transparent",color:S.g,fontSize:14,fontWeight:800,cursor:"pointer",flexShrink:0,marginLeft:4}}>中文</button></nav>);}
+function getBanner(m){const{hiRel,absLevel,isDM}=m;if(isDM&&hiRel)return{heading:"Acting Now for Your Heart",points:["Your genes show a higher-than-average chance of developing heart disease","Diabetes adds further cardiovascular risk on its own","Taking action on both fronts now is especially important"],badgeBg:"#fce4ec",badgeColor:S.r,bg:"linear-gradient(135deg,#fff5f0,#ffdbc8)",headColor:S.r,badge:"🚨 Every positive step you take now counts — for your heart and your diabetes."};if(isDM&&!hiRel)return{heading:"Taking Steps for Your Heart",points:["Your genes show an average chance of developing heart disease","However, diabetes adds cardiovascular risk on its own","Taking steps now to manage your lifestyle alongside your medication is important"],badgeBg:"#fff0e8",badgeColor:S.o,bg:"linear-gradient(135deg,#fff8f0,#ffe8d0)",headColor:S.o,badge:"💪 Your genetic chance is average, but diabetes means lifestyle action still matters."};if(hiRel&&absLevel==="high")return{heading:"Acting Now for Your Heart",points:["Your genes show a higher-than-average chance of developing heart disease","Your clinical health indicators are also elevated","Taking action now — with your doctor's support — is especially important"],badgeBg:"#fce4ec",badgeColor:S.r,bg:"linear-gradient(135deg,#fff5f0,#ffdbc8)",headColor:S.r,badge:"🚨 Your results show this is a priority — every positive step you take now counts."};if(hiRel&&absLevel==="intermediate")return{heading:"Taking Charge of Your Heart Health",points:["Your genes show a higher-than-average chance of developing heart disease","Your clinical health factors also need some attention","Making changes now can make a real difference"],badgeBg:"#fff0e8",badgeColor:S.o,bg:"linear-gradient(135deg,#fff5f0,#ffdbc8)",headColor:S.r,badge:"💪 Both your genes and clinical factors suggest that action now matters."};if(hiRel&&absLevel==="normal")return{heading:"Understanding Your Heart Health",points:["Your genes show a higher-than-average chance of developing heart disease","Your clinical health indicators are currently in a reasonable range","Building strong habits now helps keep your clinical health on track"],badgeBg:"#fff8e1",badgeColor:S.o,bg:"linear-gradient(135deg,#fff8f0,#ffe8d0)",headColor:S.o,badge:"🎯 Your clinical health is reasonable — let's build habits to keep it there."};if(!hiRel&&absLevel==="high")return{heading:"Taking Steps for Your Heart",points:["Your genes show an average chance of developing heart disease","However, your clinical health indicators are elevated","Working closely with your doctor and making lifestyle changes now is important"],badgeBg:"#fff0e8",badgeColor:S.o,bg:"linear-gradient(135deg,#fff8f0,#ffe8d0)",headColor:S.o,badge:"📋 Your genes are on your side — now let's focus on improving your clinical health."};if(!hiRel&&absLevel==="intermediate")return{heading:"Strengthening Your Heart Health",points:["Your genes show an average chance of developing heart disease","Your clinical factors suggest there is some room for improvement","Small changes now can help keep you on track"],badgeBg:"#e8f0ff",badgeColor:S.bl,bg:"linear-gradient(135deg,#f0f5ff,#dce8f8)",headColor:S.bl,badge:"📋 Your genetic chance is average — focus on improving your clinical health factors."};return{heading:"Keeping Your Heart Healthy",points:["Your genes show an average chance of developing heart disease","Your clinical health indicators show a positive picture","Maintaining your healthy habits will help keep it that way"],badgeBg:"#dff0e8",badgeColor:S.g,bg:"linear-gradient(135deg,#e6f7f2,#c8ede0)",headColor:S.g,badge:"✨ You're in a good position — keep building on your healthy habits."};}
+function getActionIntro(m){const{hiRel,absLevel,isDM}=m;if(isDM&&hiRel)return"Your genetic chance and diabetes together mean that acting now is especially important. Here are practical steps that work in Singapore.";if(isDM&&!hiRel)return"While your genetic chance is average, diabetes adds cardiovascular risk on its own. Making lifestyle changes now — alongside your medication — is important.";if(hiRel&&absLevel==="high")return"Your results show that acting now is especially important. Work closely with your doctor and commit to these practical steps.";if(hiRel&&absLevel==="intermediate")return"Both your genetic chance and clinical factors suggest that making changes now matters. Here are practical steps to get started.";if(hiRel&&absLevel==="normal")return"Your genetic chance is higher, but your clinical picture is currently manageable. Building strong habits now is worthwhile.";if(!hiRel&&absLevel==="high")return"Your genes are on your side, but your clinical risk is elevated. Working with your doctor and making lifestyle changes now is important.";if(!hiRel&&absLevel==="intermediate")return"Your genetic chance is average, but your clinical factors suggest room for improvement. Small changes now can help keep you on track.";return"Here are practical steps to maintain your heart health, with tips that work in Singapore.";}
+function showMed(m){return m.absLevel==="intermediate"||m.absLevel==="high"||m.isDM;}
+function showStrong(m){return m.absLevel==="high"||(m.isDM&&m.hiRel);}
+function Bpt({c,children}){return (<div style={{display:"flex",gap:8,alignItems:"flex-start",marginBottom:5}}><span style={{color:c,fontSize:12,marginTop:3,flexShrink:0}}>■</span><span style={{fontSize:15,color:S.sub,lineHeight:1.55}}>{children}</span></div>);}
+function WelcomeBanner({m}){const b=getBanner(m);return (<section style={{background:b.bg,padding:"40px 20px 32px",textAlign:"center"}}><div style={{fontSize:48,marginBottom:10}}>❤️</div><h1 style={{fontFamily:S.h,fontSize:28,fontWeight:900,color:b.headColor,margin:"0 auto 14px",lineHeight:1.3,maxWidth:520}}>{b.heading}</h1><p style={{fontSize:16,color:S.sub,maxWidth:480,margin:"0 auto 4px",lineHeight:1.5}}>Your doctor has shared your results with you. Here's what they mean:</p><div style={{maxWidth:440,margin:"0 auto 16px",textAlign:"left"}}>{b.points.map((pt,i)=>(<div key={i} style={{display:"flex",gap:8,alignItems:"flex-start",marginBottom:6}}><span style={{color:b.headColor,fontSize:14,marginTop:2,flexShrink:0}}>■</span><span style={{fontSize:16,color:S.body,lineHeight:1.55,fontWeight:600}}>{pt}</span></div>))}</div><div style={{marginTop:8,padding:"10px 16px",borderRadius:10,background:b.badgeBg,display:"inline-block",fontSize:15,fontWeight:700,color:b.badgeColor}}>{b.badge}</div></section>);}
+function Genes(){const cards=[{t:"What are genes?",emoji:"🧬",bg:"#f3ecfa",content:(<>Genes are <span style={{color:HL.purple,fontWeight:800}}>instructions inside your body's cells</span> that determine how your body grows and works. You inherit them from your <span style={{color:HL.purple,fontWeight:800}}>parents</span> — they influence everything from your eye colour to your health.</>)},{t:"What is DNA?",emoji:"📖",bg:S.blbg,content:(<>DNA is the material that <span style={{color:HL.blue,fontWeight:800}}>carries your genes</span>. Think of it as a long instruction manual written in "letters." <span style={{color:HL.blue,fontWeight:800}}>Small differences</span> in these letters make each person unique.</>)},{t:"How are genes linked to diseases?",emoji:"🔗",bg:S.obg,content:(<>Some gene differences can slightly raise or lower your chance of developing health conditions like <span style={{color:HL.orange,fontWeight:800}}>heart disease, diabetes, or stroke</span>. No single gene causes these conditions — it's the <span style={{color:HL.orange,fontWeight:800}}>combined effect of many small differences</span> across thousands of genes.</>)},{t:"What is a Polygenic Risk Score?",emoji:"📊",bg:S.gbg,content:(<>Scientists look at <span style={{color:HL.green,fontWeight:800}}>thousands of these small gene differences</span> together and calculate one score. Your percentile compares your genetic profile to a <span style={{color:HL.green,fontWeight:800}}>Singapore reference population</span> (the SG10K cohort), showing your relative chance of developing heart disease.</>)}];return (<Wrap id="genes"><Head title="How Genes Affect Heart Health" icon="🧬"/>{cards.map((c,i)=>(<div key={i} style={{background:c.bg,borderRadius:16,padding:20,marginBottom:12}}><span style={{fontSize:30,display:"block",marginBottom:6}}>{c.emoji}</span><h3 style={{fontFamily:S.h,fontSize:18,fontWeight:800,color:S.body,margin:"0 0 8px"}}>{c.t}</h3><p style={{fontSize:16,color:S.sub,lineHeight:1.7,margin:"0 auto",maxWidth:440}}>{c.content}</p></div>))}<div style={{background:"#fff8e1",borderLeft:`4px solid ${S.o}`,borderRadius:"0 12px 12px 0",padding:"14px 16px",fontSize:16,color:"#3e2700",lineHeight:1.7,fontWeight:600,textAlign:"left"}}>💡 Your PRS captures <span style={{color:HL.orange,fontWeight:800}}>genetic chance only</span> — not diet, exercise, or medication. That's why taking action matters.</div></Wrap>);}
+function Tip({emoji,text}){return (<div style={{background:"#fff",borderRadius:14,padding:"14px 8px",display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center",border:"1px solid #e0d8ce"}}><span style={{fontSize:34,marginBottom:6}}>{emoji}</span><span style={{fontSize:14,color:S.body,lineHeight:1.5,fontWeight:600}}>{text}</span></div>);}
+function Action({m}){const intro=getActionIntro(m);const med=showMed(m);const strong=showStrong(m);const strongB=["Attend your regular follow-ups and discuss your progress","Take your medication as prescribed by your doctor","If you have concerns about side effects, discuss them with your doctor rather than stopping on your own","Lifestyle changes work best alongside medical care"];const modB=["Continue taking your medication as prescribed by your doctor","If you have concerns about side effects, discuss them at your next visit rather than stopping on your own","Medication and lifestyle changes work best together"];return (<Wrap id="action"><Head title="What You Can Do" icon="💪"/><p style={{fontSize:17,color:S.sub,lineHeight:1.65,maxWidth:460,margin:"0 auto 20px"}}>{intro}</p>{med&&(<div style={{background:strong?"#fce4ec":"#fff3e0",border:`2px solid ${strong?"#ef5350":"#ffb74d"}`,borderRadius:14,padding:"16px 18px",marginBottom:24,maxWidth:460,margin:"0 auto 24px",textAlign:"left"}}><div style={{fontSize:16,fontWeight:800,color:strong?S.r:S.o,marginBottom:8}}>{strong?"🏥 Working closely with your doctor is especially important":"💊 Continue your medication as prescribed"}</div>{(strong?strongB:modB).map((b,i)=>(<Bpt key={i} c={strong?S.r:S.o}>{b}</Bpt>))}</div>)}<h3 style={{fontFamily:S.h,fontSize:20,fontWeight:900,color:S.g,margin:"0 0 12px"}}>🥗 Eat Well — The Healthy Plate Way</h3><div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:8,marginBottom:m.isDM?8:24}}><Tip emoji="🥬" text="Half plate: fruit and vegetables"/><Tip emoji="🍜" text="Soup-based over gravy dishes"/><Tip emoji="🍚" text="Choose brown rice when available"/><Tip emoji="✋" text="One fist = one serving of rice"/><Tip emoji="🍎" text="Fresh fruit over fried snacks"/><Tip emoji="🫒" text="Ask for less oil at mixed rice stalls"/><Tip emoji="🐟" text="Steam, grill, or boil — not fry"/><Tip emoji="💧" text="Water instead of sweet drinks"/></div>{m.isDM&&<div style={{background:S.gbg,borderRadius:10,padding:"12px 16px",marginBottom:24,fontSize:16,color:S.g,fontWeight:700}}>🩸 Check how meals and activity affect your blood sugar — small changes make a big difference.</div>}<h3 style={{fontFamily:S.h,fontSize:20,fontWeight:900,color:S.bl,margin:"0 0 12px"}}>🏃 Move More — 150 Minutes a Week</h3><div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8,marginBottom:24}}><Tip emoji="⏱️" text="10-min blocks — three walks add up"/><Tip emoji="🪜" text="Take stairs for 2–3 floors"/><Tip emoji="🚶" text="Walk to the bus stop or MRT"/><Tip emoji="🌳" text="Walk or jog at a nearby park"/><Tip emoji="🏢" text="Gentle walk around your block or void deck"/><Tip emoji="👫" text="Walk with family after dinner"/></div><h3 style={{fontFamily:S.h,fontSize:20,fontWeight:900,color:S.p,margin:"0 0 12px"}}>😴 Sleep Well — 7 to 9 Hours</h3><div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:8,marginBottom:24}}><Tip emoji="⏰" text="Same wake-up time daily"/><Tip emoji="📱" text="Night mode after 9 pm"/><Tip emoji="❄️" text="Room cool at 25°C"/><Tip emoji="☕" text="No kopi/teh near bedtime"/></div><h3 style={{fontFamily:S.h,fontSize:20,fontWeight:900,color:S.r,margin:"0 0 12px"}}>🚫 Cut Down or Avoid</h3><div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:8}}><Tip emoji="🍟" text="Deep-fried food raises LDL cholesterol"/><Tip emoji="🧂" text="Salty food raises blood pressure"/><Tip emoji="🍬" text="Sugary food and drinks raise blood sugar"/><Tip emoji="🍺" text="Alcohol raises blood pressure"/><Tip emoji="🚬" text="Smoking damages blood vessels"/></div></Wrap>);}
+function Numbers(){const[vals,setVals]=useState({hba1c:"",bp:"",ldl:"",egfr:""});const col={good:"#2e7d32",caution:"#e65100",alert:"#b71c1c"};const lab={good:"Within typical target",caution:"Above typical target — discuss with your doctor",alert:"Well above typical target — speak with your doctor soon",invalid:"Please check — this value seems outside the expected range."};const ico={good:"✓",caution:"!",alert:"▲"};const inds=[{k:"hba1c",name:"HbA1c",emoji:"🩸",unit:"%",desc:"Average blood sugar over 2–3 months.",why:"High blood sugar damages blood vessels over time.",src:"Target: <7% (ACE T2DM ACG, May 2023)"},{k:"bp",name:"Blood Pressure",emoji:"💓",unit:"mmHg (systolic)",desc:"Pressure in arteries when heart beats.",why:"High BP forces the heart to work harder.",src:"Target: <130 mmHg (ACE Hypertension ACG, Dec 2023)"},{k:"ldl",name:"LDL Cholesterol",emoji:"🫀",unit:"mmol/L",desc:'"Bad" cholesterol in artery walls.',why:"High LDL narrows arteries, raising heart attack risk.",src:"Target: <2.6 mmol/L (ACE Lipid ACG, Dec 2023)"},{k:"egfr",name:"eGFR (Kidney)",emoji:"🫘",unit:"mL/min/1.73m²",desc:"How well kidneys filter waste.",why:"Poor kidney function increases cardiovascular risk.",src:"Normal: ≥60 (ACE CKD ACG, Oct 2023)"}];return (<Wrap id="numbers"><Head title="Know Your Numbers" icon="🔢"/><p style={{fontSize:16,color:S.sub,lineHeight:1.65,maxWidth:460,margin:"0 auto 6px"}}>Check how your latest health numbers compare to typical targets. <strong>For awareness only</strong> — discuss personal goals with your doctor.</p><p style={{fontSize:14,color:S.mid,marginBottom:20}}>🔒 Values entered are not stored. They disappear when you close this page.</p>{inds.map(ind=>{const st=light(ind.k,vals[ind.k]);return (<div key={ind.k} style={{background:"#fff",border:`1.5px solid ${st&&st!=="invalid"?col[st]+"60":"#ccc"}`,borderRadius:16,padding:"18px 20px",marginBottom:14,maxWidth:460,margin:"0 auto 14px",borderLeft:`5px solid ${st&&st!=="invalid"?col[st]:st==="invalid"?"#999":"#bbb"}`}}><div style={{display:"flex",alignItems:"flex-start",gap:14}}><div style={{flex:1,textAlign:"left"}}><div style={{fontFamily:S.h,fontSize:20,fontWeight:900,color:S.body}}>{ind.name}</div><div style={{fontSize:15,color:S.mid,marginTop:2}}>{ind.desc}</div><p style={{fontSize:15,color:S.sub,margin:"8px 0 12px",lineHeight:1.55}}><strong>Why it matters:</strong> {ind.why}</p><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}><input type="number" step="any" placeholder="Enter value" value={vals[ind.k]} onChange={e=>setVals({...vals,[ind.k]:e.target.value})} style={{padding:"12px 14px",border:"2px solid #999",borderRadius:10,fontSize:18,fontWeight:800,fontFamily:S.f,color:S.body,width:180,background:"#fafaf7",outline:"none"}}/><span style={{fontSize:14,color:S.sub,fontWeight:700}}>{ind.unit}</span></div>{st&&st!=="invalid"&&(<div style={{display:"flex",alignItems:"center",gap:8,padding:"10px 14px",borderRadius:10,background:st==="good"?"#e8f5e9":st==="caution"?S.obg:S.rbg,marginBottom:6}}><span style={{width:26,height:26,borderRadius:st==="good"?"50%":st==="caution"?4:0,background:col[st],color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,fontWeight:900,flexShrink:0,clipPath:st==="alert"?"polygon(50% 0%, 0% 100%, 100% 100%)":"none"}}>{ico[st]}</span><span style={{fontSize:16,color:col[st],fontWeight:800}}>{lab[st]}</span></div>)}{st==="invalid"&&<div style={{padding:"10px 14px",borderRadius:10,background:"#f5f5f5",fontSize:15,color:"#777",fontWeight:600,marginBottom:6}}>⚠️ {lab.invalid}</div>}<p style={{fontSize:12,color:"#888",margin:"4px 0 0"}}>{ind.src}</p></div><span style={{fontSize:44,flexShrink:0,marginTop:4}}>{ind.emoji}</span></div></div>);})}</Wrap>);}
 
-// ═══════════════════════════════════════════════
-// CLINICAL THRESHOLDS & UTILITIES
-// ═══════════════════════════════════════════════
-const BOUNDS = { hba1c: [4, 15], bp: [70, 250], ldl: [0.5, 10], egfr: [0, 200] };
-const THRESHOLDS = {
-  hba1c: { good: 7, amber: 8 },
-  bp:    { good: 130, amber: 140 },
-  ldl:   { good: 2.6, amber: 3.4 },
-  egfr:  { good: 60, amber: 30, inverted: true }
-};
+function PlateSection(){
+  const [filter,setFilter]=useState("all");const [plate,setPlate]=useState({veg:[],grain:[],protein:[]});const [sel,setSel]=useState(null);const [fb,setFb]=useState(null);const [history,setHistory]=useState([]);
+  const max={veg:4,grain:2,protein:2};const zc={veg:"#2e7d32",grain:"#f57f17",protein:"#7b1fa2"};const zl={veg:"Fruit & Veg",grain:"Rice, Noodles & Bread",protein:"Meat and Others"};
+  const filtered=FOODS.filter(f=>filter==="all"?true:(f.cuisine===filter||f.cuisine==="all"));
+  const used=new Set([...Object.values(plate).flat().map(i=>i.id),...history.filter(h=>!h.ok).map(h=>h.item.id)]);
+  function tapItem(item){if(sel&&sel.id===item.id){setSel(null);setFb(null);return;}setSel(item);setFb(null);}
+  function tapZone(zone){if(!sel){setFb({type:"info",content:"👆 Step 1 first: select a food item above."});return;}if(sel.zone==="avoid"){setFb({type:"avoid",name:sel.name,reason:sel.reason,alt:sel.alt});setHistory(h=>[...h,{item:sel,ok:false}]);setSel(null);return;}if(sel.zone!==zone){setFb({type:"wrong",content:`"${sel.name}" belongs in ${zl[sel.zone]} — tap that section instead.`});return;}if(plate[zone].length>=max[zone]){setFb({type:"info",content:`That section is full (max ${max[zone]} items).`});setSel(null);return;}if(plate[zone].find(i=>i.id===sel.id)){setFb({type:"info",content:"Already on your plate."});setSel(null);return;}setPlate({...plate,[zone]:[...plate[zone],sel]});setHistory(h=>[...h,{item:sel,ok:true}]);setFb({type:"good",content:`"${sel.name}" — ${sel.desc.toLowerCase()}.`});setSel(null);}
+  function check(){const t=plate.veg.length+plate.grain.length+plate.protein.length;if(!t){setFb({type:"info",content:"Your plate is empty — start with Step 1!"});return;}const ok=plate.veg.length>=2&&plate.grain.length>=1&&plate.protein.length>=1;if(ok){const w=history.filter(h=>!h.ok).length;const r=history.filter(h=>h.ok).length;setFb({type:"done",content:`${r} healthy choice${r>1?"s":""} placed${w?`, ${w} incorrect selection${w>1?"s":""}`:""}.`});}else{let n=[];if(plate.veg.length<2)n.push("more fruit & veg");if(!plate.grain.length)n.push("rice, noodles or bread");if(!plate.protein.length)n.push("meat or protein");setFb({type:"almost",content:`Almost there — add ${n.join(", ")}.`});}}
+  function reset(){setPlate({veg:[],grain:[],protein:[]});setFb(null);setSel(null);setHistory([]);}
+  function renderFb(){if(!fb)return null;if(fb.type==="good")return (<div style={{background:"#e8f5e9",borderRadius:10,padding:"12px 16px",fontSize:15,color:S.body,lineHeight:1.6,fontWeight:600,maxWidth:500,margin:"0 auto 12px"}}>✅ <span style={{color:S.g,fontWeight:800}}>{fb.content}</span></div>);if(fb.type==="done")return (<div style={{background:"#e8f5e9",borderRadius:10,padding:"12px 16px",fontSize:15,color:S.body,lineHeight:1.6,fontWeight:600,maxWidth:500,margin:"0 auto 12px"}}>🎉 <span style={{color:S.g,fontWeight:800}}>Well done!</span> {fb.content}</div>);if(fb.type==="almost")return (<div style={{background:S.obg,borderRadius:10,padding:"12px 16px",fontSize:15,color:S.body,lineHeight:1.6,fontWeight:600,maxWidth:500,margin:"0 auto 12px"}}>🔄 {fb.content}</div>);if(fb.type==="avoid")return (<div style={{background:"#fff8e1",borderRadius:10,padding:"14px 16px",fontSize:15,color:S.body,lineHeight:1.7,maxWidth:500,margin:"0 auto 12px",textAlign:"left"}}><div style={{marginBottom:6}}><span style={{fontWeight:800,color:S.o}}>"{fb.name}"</span> is generally not a healthy-plate option, because it is <span style={{fontWeight:700,color:S.r,textDecoration:"underline"}}>{fb.reason}</span>.</div><div style={{marginBottom:8}}>If possible, try <span style={{fontWeight:700,color:S.g}}>{fb.alt}</span> instead.</div><div style={{fontSize:14,color:S.mid,fontStyle:"italic",borderTop:"1px solid #eee",paddingTop:8}}>💡 {MOD_NOTE}</div></div>);if(fb.type==="wrong")return (<div style={{background:S.obg,borderRadius:10,padding:"12px 16px",fontSize:15,color:S.body,lineHeight:1.6,fontWeight:600,maxWidth:500,margin:"0 auto 12px"}}>{fb.content}</div>);return (<div style={{background:"#f5f5f5",borderRadius:10,padding:"12px 16px",fontSize:15,color:S.body,lineHeight:1.6,fontWeight:600,maxWidth:500,margin:"0 auto 12px"}}>{fb.content}</div>);}
 
-function getTrafficLight(key, value) {
-  if (value === "" || value === undefined || value === null) return null;
-  const n = parseFloat(value);
-  if (isNaN(n)) return null;
-  const b = BOUNDS[key];
-  if (n < b[0] || n > b[1]) return "invalid";
-  const th = THRESHOLDS[key];
-  if (th.inverted) return n >= th.good ? "good" : n >= th.amber ? "caution" : "alert";
-  return n < th.good ? "good" : n <= th.amber ? "caution" : "alert";
-}
+  // Large centered plate with corner labels + dotted lines
+  const R=100,oR=R+8,pcx=280,pcy=215,svgW=560,svgH=430;
+  function arc(sa,ea,color,zone){const sr=sa*Math.PI/180,er=ea*Math.PI/180;const x1=pcx+R*Math.cos(sr),y1=pcy+R*Math.sin(sr),x2=pcx+R*Math.cos(er),y2=pcy+R*Math.sin(er);return (<path d={`M${pcx},${pcy}L${x1},${y1}A${R},${R},0,${ea-sa>180?1:0},1,${x2},${y2}Z`} fill="#f0ece5" stroke={color} strokeWidth="3" onClick={()=>tapZone(zone)} style={{cursor:"pointer"}}/>);}
+  // Plate edge points
+  const gAng=210,vAng=330,pAng=130;
+  const gEX=pcx+oR*Math.cos(gAng*Math.PI/180),gEY=pcy+oR*Math.sin(gAng*Math.PI/180);
+  const vEX=pcx+oR*Math.cos(vAng*Math.PI/180),vEY=pcy+oR*Math.sin(vAng*Math.PI/180);
+  const pEX=pcx+oR*Math.cos(pAng*Math.PI/180),pEY=pcy+oR*Math.sin(pAng*Math.PI/180);
+  // Label boxes — large, in corners
+  const gBox={x:0,y:18,w:215,h:88};   // grain: top-left
+  const vBox={x:350,y:8,w:208,h:70};   // veg: top-right
+  const pBox={x:0,y:340,w:180,h:70};   // meat: bottom-left
+  // Line anchor points (bottom-center of top labels, top-center of bottom label)
+  const gAnc={x:gBox.x+gBox.w/2, y:gBox.y+gBox.h};
+  const vAnc={x:vBox.x+vBox.w/2, y:vBox.y+vBox.h};
+  const pAnc={x:pBox.x+pBox.w/2, y:pBox.y};
 
-// URL parameters
-function getParams() {
-  const sp = new URLSearchParams(window.location.search);
-  const pRaw = sp.get('p');
-  const tRaw = sp.get('t');
-  const p = pRaw !== null ? parseInt(pRaw) : null;
-  const t = tRaw !== null ? parseInt(tRaw) : null;
-  const relRisk = (p !== null && p >= 80) ? 'high' : 'avg';
-  let absRisk = null;
-  if (t !== null) {
-    absRisk = t > 20 ? 'high' : (t >= 10 ? 'intermediate' : 'normal');
-  }
-  const isDiabetes = (p !== null && t === null);
-  return { p: p || 50, t, relRisk, absRisk, isDiabetes, hasParams: pRaw !== null };
-}
+  const hdrH=72;
+  return (
+    <Wrap id="plate">
+      <Head title="Build a Healthy Plate" icon="🍽️"/>
+      <div style={{fontSize:20,fontWeight:900,color:S.body,marginBottom:10}}>🍽️ My Healthy Plate</div>
+      <p style={{fontSize:16,fontWeight:700,color:S.mid,marginBottom:10}}>📺 Click below to watch these helpful videos:</p>
+      <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap",marginBottom:18,maxWidth:480,margin:"0 auto 18px"}}><a href="https://www.youtube.com/watch?v=2w4Ssp_oyRA" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",flex:1,minWidth:180}}><div style={{background:"linear-gradient(135deg,#e8f5e9,#c8e6c9)",border:"2px solid #66bb6a",borderRadius:12,padding:"12px 14px",display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:28,flexShrink:0}}>🎬</span><span style={{fontSize:15,fontWeight:800,color:"#2e7d32",lineHeight:1.3}}>What is My Healthy Plate?</span></div></a><a href="https://www.youtube.com/watch?v=CmzlNGbiGiQ" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",flex:1,minWidth:180}}><div style={{background:"linear-gradient(135deg,#fff3e0,#ffe0b2)",border:"2px solid #ffa726",borderRadius:12,padding:"12px 14px",display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:28,flexShrink:0}}>🎬</span><span style={{fontSize:15,fontWeight:800,color:"#e65100",lineHeight:1.3}}>10 Healthy Plate Ideas</span></div></a></div>
+      <p style={{fontSize:16,color:S.sub,lineHeight:1.65,maxWidth:460,margin:"0 auto 10px"}}>Practise building a balanced meal. Can you spot the healthy choices?</p>
+      <div style={{background:S.gbg,borderRadius:12,padding:"14px 18px",fontSize:16,color:S.body,lineHeight:1.7,textAlign:"left",maxWidth:440,margin:"0 auto 20px"}}><strong>Step 1:</strong> Select a food item from the list below.<br/><strong>Step 2:</strong> Tap a category box below the plate (or directly on the plate) to place it there.<br/><strong>Step 3:</strong> Check the feedback — it will tell you if your choice is healthy, where it belongs, and why.<br/><span style={{color:S.mid,fontSize:14}}>Not all items belong on a healthy plate — you'll learn why. Tap a selected item again to deselect it.</span></div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:8,maxWidth:500,margin:"0 auto 16px"}}>{filtered.map(item=>{const isSel=sel?.id===item.id;const isDone=used.has(item.id);return (<button key={item.id} onClick={()=>!isDone&&tapItem(item)} style={{padding:"10px 4px",border:isSel?`2.5px solid ${S.g}`:"1.5px solid #ccc",borderRadius:12,background:isSel?S.gbg:isDone?"#ece9e4":"#fff",cursor:isDone?"default":"pointer",opacity:isDone?0.5:1,display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center",minHeight:82}}><span style={{fontSize:30,marginBottom:3}}>{item.emoji}</span><span style={{fontSize:12,fontWeight:700,color:isDone?"#aaa":S.body,lineHeight:1.3}}>{item.name}</span><span style={{fontSize:10,color:isDone?"#bbb":S.mid,lineHeight:1.2,marginTop:2}}>{item.desc}</span></button>);})}</div>
+      <div style={{marginBottom:6,fontSize:13,color:S.mid,fontWeight:600}}>Filter by ethnic food type:</div>
+      <div style={{display:"flex",gap:6,marginBottom:18,flexWrap:"wrap",justifyContent:"center"}}>{[["all","All"],["chinese","Chinese"],["malay","Malay"],["indian","Indian"]].map(([k,l])=>(<button key={k} onClick={()=>setFilter(k)} style={{padding:"7px 16px",border:`1.5px solid ${filter===k?S.g:"#bbb"}`,borderRadius:18,background:filter===k?S.g:"#fff",color:filter===k?"#fff":S.sub,fontSize:14,fontWeight:700,cursor:"pointer"}}>{l}</button>))}</div>
 
-// GA4 event helper
-function trackEvent(name, params) {
-  if (typeof gtag === 'function') gtag('event', name, params);
-}
+      {/* Plate SVG — large, centered, with corner labels + dotted lines */}
+      <div style={{margin:"0 auto 10px",maxWidth:560}}>
+        <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{width:"100%"}}>
+          {/* Plate */}
+          <circle cx={pcx} cy={pcy} r={oR} fill="none" stroke={S.div} strokeWidth="3"/>
+          {arc(270,90,zc.veg,"veg")}
+          {arc(90,180,zc.protein,"protein")}
+          {arc(180,270,zc.grain,"grain")}
 
-// ═══════════════════════════════════════════════
-// SHARED COMPONENTS
-// ═══════════════════════════════════════════════
-const S = {
-  wrap: { maxWidth: 'var(--max-w)', margin: '0 auto', padding: '0 20px' },
-  section: { padding: '36px 0', borderBottom: '2px solid var(--c-divider)' },
-  sectionLast: { padding: '36px 0' },
-  h2: { fontFamily: 'var(--font-heading)', fontSize: 26, fontWeight: 800, color: 'var(--c-body)', marginBottom: 14, lineHeight: 1.3 },
-  h3: { fontFamily: 'var(--font-heading)', fontSize: 20, fontWeight: 700, color: 'var(--c-body)', marginBottom: 8 },
-  p: { fontSize: 17, color: 'var(--c-body)', lineHeight: 1.7, marginBottom: 14 },
-  card: { background: '#fff', borderRadius: 'var(--r)', padding: '18px 20px', marginBottom: 14, border: '1px solid #e8e2db' },
-  pill: { display: 'inline-block', padding: '6px 14px', borderRadius: 20, fontSize: 14, fontWeight: 600, cursor: 'pointer', margin: '4px', border: '2px solid transparent', transition: 'all 0.15s', userSelect: 'none' }
-};
+          {/* Dotted lines from labels to plate edge */}
+          <line x1={gAnc.x} y1={gAnc.y} x2={gEX} y2={gEY} stroke={zc.grain} strokeWidth="2" strokeDasharray="5,4"/>
+          <line x1={vAnc.x} y1={vAnc.y} x2={vEX} y2={vEY} stroke={zc.veg} strokeWidth="2" strokeDasharray="5,4"/>
+          <line x1={pAnc.x} y1={pAnc.y} x2={pEX} y2={pEY} stroke={zc.protein} strokeWidth="2" strokeDasharray="5,4"/>
 
-function Wrap({ children, style }) {
-  return React.createElement('div', { style: { ...S.wrap, ...style } }, children);
-}
+          {/* Rice, Noodles & Bread — top-left */}
+          <rect x={gBox.x} y={gBox.y} width={gBox.w} height={gBox.h} rx={12} fill="#fff" stroke={zc.grain} strokeWidth="2.5" onClick={()=>tapZone("grain")} style={{cursor:"pointer"}}/>
+          <text x={gBox.x+gBox.w/2} y={gBox.y+24} textAnchor="middle" fontSize="16" fontWeight="900" fill={zc.grain} fontFamily={S.h}>¼ Rice, Noodles & Bread</text>
+          <text x={gBox.x+gBox.w/2} y={gBox.y+44} textAnchor="middle" fontSize="13" fontWeight="700" fill={zc.grain} fontFamily={S.f}>(wholegrains when possible)</text>
+          <text x={gBox.x+gBox.w/2} y={gBox.y+66} textAnchor="middle" fontSize="14" fontWeight="700" fill={S.mid} fontFamily={S.f}>{plate.grain.length} of {max.grain} items</text>
 
-function Section({ id, children, last }) {
-  const ref = useRef(null);
-  const [vis, setVis] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } }, { threshold: 0.08 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  // Track section views
-  useEffect(() => {
-    if (vis && id) trackEvent('section_view', { section_id: id });
-  }, [vis, id]);
-  return React.createElement('section', {
-    id, ref,
-    className: 'section-wrap' + (vis ? ' visible' : ''),
-    style: last ? S.sectionLast : S.section
-  }, React.createElement('div', { style: S.wrap }, children));
-}
+          {/* Fruit & Veg — top-right */}
+          <rect x={vBox.x} y={vBox.y} width={vBox.w} height={vBox.h} rx={12} fill="#fff" stroke={zc.veg} strokeWidth="2.5" onClick={()=>tapZone("veg")} style={{cursor:"pointer"}}/>
+          <text x={vBox.x+vBox.w/2} y={vBox.y+28} textAnchor="middle" fontSize="18" fontWeight="900" fill={zc.veg} fontFamily={S.h}>½ Fruit & Veg</text>
+          <text x={vBox.x+vBox.w/2} y={vBox.y+52} textAnchor="middle" fontSize="14" fontWeight="700" fill={S.mid} fontFamily={S.f}>{plate.veg.length} of {max.veg} items</text>
 
-// ═══════════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════════
-function NavBar({ lang, setLang, t, params }) {
-  const [open, setOpen] = useState(false);
-  const navItems = [
-    { key: 'genes', label: t.nav.genes, href: '#genes' },
-    ...(params.hasParams ? [{ key: 'score', label: t.nav.score, href: '#score' }] : []),
-    { key: 'action', label: t.nav.action, href: '#action' },
-    { key: 'numbers', label: t.nav.numbers, href: '#numbers' },
-    { key: 'plate', label: t.nav.plate, href: '#plate' },
-    { key: 'faq', label: t.nav.faq, href: '#faq' }
-  ];
+          {/* Meat and Others — bottom-left */}
+          <rect x={pBox.x} y={pBox.y} width={pBox.w} height={pBox.h} rx={12} fill="#fff" stroke={zc.protein} strokeWidth="2.5" onClick={()=>tapZone("protein")} style={{cursor:"pointer"}}/>
+          <text x={pBox.x+pBox.w/2} y={pBox.y+28} textAnchor="middle" fontSize="18" fontWeight="900" fill={zc.protein} fontFamily={S.h}>¼ Meat and Others</text>
+          <text x={pBox.x+pBox.w/2} y={pBox.y+52} textAnchor="middle" fontSize="14" fontWeight="700" fill={S.mid} fontFamily={S.f}>{plate.protein.length} of {max.protein} items</text>
+        </svg>
+      </div>
 
-  function toggleLang() {
-    const next = lang === 'en' ? 'zh' : 'en';
-    setLang(next);
-    trackEvent('language_toggle', { from: lang, to: next });
-  }
-
-  return React.createElement('nav', {
-    style: { position: 'sticky', top: 0, zIndex: 100, background: '#fff', borderBottom: '2px solid var(--c-divider)', fontFamily: 'var(--font-heading)' }
-  },
-    React.createElement('div', {
-      style: { ...S.wrap, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56 }
-    },
-      React.createElement('span', {
-        style: { fontWeight: 800, fontSize: 18, color: 'var(--c-body)', whiteSpace: 'nowrap' }
-      }, '❤️ ', lang === 'en' ? 'Heart Health' : '心脏健康'),
-      React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } },
-        // Desktop nav links
-        React.createElement('div', {
-          style: { display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' },
-          className: 'nav-links-desktop'
-        },
-          navItems.map(item =>
-            React.createElement('a', {
-              key: item.key, href: item.href,
-              style: { fontSize: 14, fontWeight: 600, color: 'var(--c-mid)', textDecoration: 'none', padding: '4px 8px', borderRadius: 8, transition: 'background 0.15s' },
-              onMouseEnter: e => e.target.style.background = 'var(--c-warm)',
-              onMouseLeave: e => e.target.style.background = 'transparent'
-            }, item.label)
-          )
-        ),
-        // Language toggle button
-        React.createElement('button', {
-          onClick: toggleLang,
-          style: { background: 'var(--c-blue)', color: '#fff', border: 'none', borderRadius: 8, padding: '6px 14px', fontSize: 14, fontWeight: 700, letterSpacing: 0.5 }
-        }, t.langLabel),
-        // Mobile hamburger
-        React.createElement('button', {
-          onClick: () => setOpen(!open),
-          className: 'nav-hamburger',
-          style: { background: 'none', border: 'none', fontSize: 24, color: 'var(--c-body)', display: 'none', padding: 4 }
-        }, open ? '✕' : '☰')
-      )
-    ),
-    // Mobile dropdown
-    open && React.createElement('div', {
-      className: 'nav-mobile-menu',
-      style: { background: '#fff', borderBottom: '2px solid var(--c-divider)', padding: '8px 20px 16px' }
-    },
-      navItems.map(item =>
-        React.createElement('a', {
-          key: item.key, href: item.href,
-          onClick: () => setOpen(false),
-          style: { display: 'block', padding: '10px 0', fontSize: 17, fontWeight: 600, color: 'var(--c-body)', textDecoration: 'none', borderBottom: '1px solid #eee' }
-        }, item.label)
-      )
-    ),
-    // Responsive styles injected
-    React.createElement('style', null, `
-      @media (max-width: 640px) {
-        .nav-links-desktop { display: none !important; }
-        .nav-hamburger { display: block !important; }
-      }
-      @media (min-width: 641px) {
-        .nav-mobile-menu { display: none !important; }
-      }
-    `)
+      {/* Category item boxes below plate */}
+      <div style={{display:"grid",gridTemplateColumns:"4fr 4fr 3fr",gap:10,maxWidth:560,margin:"0 auto 14px",alignItems:"start"}}>
+        <div onClick={()=>tapZone("grain")} style={{cursor:"pointer"}}>
+          <div style={{height:hdrH,display:"flex",flexDirection:"column",justifyContent:"flex-end",paddingBottom:4}}>
+            <div style={{fontSize:16,fontWeight:900,color:zc.grain,fontFamily:S.h}}>¼ Rice, Noodles & Bread</div>
+            <div style={{fontSize:12,fontWeight:600,color:zc.grain,fontStyle:"italic"}}>(wholegrains when possible)</div>
+            <div style={{fontSize:14,fontWeight:700,color:S.mid}}>{plate.grain.length} of {max.grain} items added</div>
+          </div>
+          <div style={{border:`2px solid ${zc.grain}50`,borderRadius:12,minHeight:56,padding:"8px 6px",display:"flex",flexWrap:"wrap",gap:4,background:"#fff",justifyContent:"center",alignContent:"flex-start"}}>
+            {plate.grain.length===0&&<span style={{fontSize:13,color:"#bbb",fontStyle:"italic",padding:"10px 0"}}>Tap to add</span>}
+            {plate.grain.map(it=>(<span key={it.id} style={{background:zc.grain+"12",border:`1.5px solid ${zc.grain}40`,borderRadius:8,padding:"5px 10px",fontSize:12,fontWeight:700,color:S.body,whiteSpace:"nowrap"}}>{it.emoji} {it.name}</span>))}
+          </div>
+        </div>
+        <div onClick={()=>tapZone("veg")} style={{cursor:"pointer"}}>
+          <div style={{height:hdrH,display:"flex",flexDirection:"column",justifyContent:"flex-end",paddingBottom:4}}>
+            <div style={{fontSize:17,fontWeight:900,color:zc.veg,fontFamily:S.h}}>½ Fruit & Veg</div>
+            <div style={{fontSize:14,fontWeight:700,color:S.mid}}>{plate.veg.length} of {max.veg} items added</div>
+          </div>
+          <div style={{border:`2px solid ${zc.veg}50`,borderRadius:12,minHeight:56,padding:"8px 6px",display:"flex",flexWrap:"wrap",gap:4,background:"#fff",justifyContent:"center",alignContent:"flex-start"}}>
+            {plate.veg.length===0&&<span style={{fontSize:13,color:"#bbb",fontStyle:"italic",padding:"10px 0"}}>Tap to add</span>}
+            {plate.veg.map(it=>(<span key={it.id} style={{background:zc.veg+"12",border:`1.5px solid ${zc.veg}40`,borderRadius:8,padding:"5px 10px",fontSize:12,fontWeight:700,color:S.body,whiteSpace:"nowrap"}}>{it.emoji} {it.name}</span>))}
+          </div>
+        </div>
+        <div onClick={()=>tapZone("protein")} style={{cursor:"pointer"}}>
+          <div style={{height:hdrH,display:"flex",flexDirection:"column",justifyContent:"flex-end",paddingBottom:4}}>
+            <div style={{fontSize:17,fontWeight:900,color:zc.protein,fontFamily:S.h}}>¼ Meat and Others</div>
+            <div style={{fontSize:14,fontWeight:700,color:S.mid}}>{plate.protein.length} of {max.protein} items added</div>
+          </div>
+          <div style={{border:`2px solid ${zc.protein}50`,borderRadius:12,minHeight:56,padding:"8px 6px",display:"flex",flexWrap:"wrap",gap:4,background:"#fff",justifyContent:"center",alignContent:"flex-start"}}>
+            {plate.protein.length===0&&<span style={{fontSize:13,color:"#bbb",fontStyle:"italic",padding:"10px 0"}}>Tap to add</span>}
+            {plate.protein.map(it=>(<span key={it.id} style={{background:zc.protein+"12",border:`1.5px solid ${zc.protein}40`,borderRadius:8,padding:"5px 10px",fontSize:12,fontWeight:700,color:S.body,whiteSpace:"nowrap"}}>{it.emoji} {it.name}</span>))}
+          </div>
+        </div>
+      </div>
+      {renderFb()}
+      {history.length>0&&<div style={{marginBottom:12,fontSize:14,color:S.mid}}>Score: <span style={{color:"#2e7d32",fontWeight:800}}>✓ {history.filter(h=>h.ok).length} correct</span>{history.some(h=>!h.ok)&&<>{" · "}<span style={{color:S.r,fontWeight:800}}>✗ {history.filter(h=>!h.ok).length} incorrect</span></>}</div>}
+      <div style={{display:"flex",gap:8,justifyContent:"center",maxWidth:380,margin:"0 auto"}}><button onClick={check} style={{flex:1,padding:"13px",border:"none",borderRadius:10,background:S.g,color:"#fff",fontSize:16,fontWeight:800,cursor:"pointer"}}>✅ Check my plate</button><button onClick={reset} style={{padding:"13px 18px",border:`2px solid ${S.div}`,borderRadius:10,background:"#fff",color:S.sub,fontSize:16,fontWeight:700,cursor:"pointer"}}>🔄 Start over</button></div>
+    </Wrap>
   );
 }
 
-// ═══════════════════════════════════════════════
-// WELCOME BANNER
-// ═══════════════════════════════════════════════
-function WelcomeBanner({ t, params }) {
-  const wt = params.relRisk === 'high' ? t.welcome.high : (params.hasParams ? t.welcome.avg : t.welcome.fallback);
-  const isHigh = params.relRisk === 'high';
-  const bgGrad = isHigh
-    ? 'linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%)'
-    : 'linear-gradient(135deg, #e4f5ef 0%, #b9e5d4 100%)';
+function Res({href,name,desc}){return (<div style={{marginBottom:14}}><a href={href} target="_blank" rel="noopener noreferrer" style={{color:S.g,textDecoration:"underline",fontSize:16,fontWeight:700}}>{name}</a><div style={{fontSize:14,color:S.mid,marginTop:3}}>{desc}</div></div>);}
+function FAQ(){const[open,setOpen]=useState(null);const learnMore=(<div style={{textAlign:"left",maxWidth:460,margin:"0 auto"}}><p style={{marginBottom:14}}>Here are some useful resources:</p><div style={{marginBottom:10}}><strong>General health information:</strong></div><Res href="https://hpb.gov.sg" name="Health Promotion Board" desc="Singapore's national agency for health promotion — diet, exercise, and wellness resources."/><Res href="https://www.healthhub.sg/programmes/heart-health" name="HealthHub — Heart Health" desc="Heart health programmes, articles, and tools from Singapore's health portal."/><Res href="https://activesg.gov.sg/home" name="ActiveSG" desc="Free and affordable sports facilities, fitness programmes, and community activities across Singapore."/><div style={{marginTop:18,marginBottom:10}}><strong>CVD-related information:</strong></div><Res href="https://www.myheart.org.sg" name="Singapore Heart Foundation" desc="Patient resources on heart disease prevention, symptoms, and living with heart conditions."/><Res href="https://www.nhcs.com.sg" name="National Heart Centre Singapore" desc="Singapore's specialist heart centre — patient education on heart conditions and treatments."/><Res href="https://www.ace-hta.gov.sg/healthcare-professionals/ace-repository-for-clinical-guidelines/" name="ACE Clinical Guidelines" desc="Evidence-based clinical guidelines from Singapore's Agency for Care Effectiveness."/><div style={{marginTop:18,marginBottom:10}}><strong>Precision medicine:</strong></div><Res href="https://www.npm.sg" name="PRECISE — National Precision Medicine" desc="Singapore's national programme using genomic data to improve health outcomes for the local population."/></div>);const items=[{q:"Can I change my genetic risk?",a:"No — your genes don't change. But you can lower your overall heart disease risk through diet, exercise, medication, and healthy habits. Many people with higher genetic risk never develop heart disease because they manage other risk factors well."},{q:"Should my family members get tested?",a:"Heart disease risk can run in families. If you have a higher genetic risk, it may be worth discussing genetic testing with your family members' doctors. Family members benefit from healthy lifestyle changes regardless."},{q:"How accurate are these scores?",a:(<>The polygenic risk score is an estimate based on current science — it captures a meaningful portion of genetic risk but not all of it. Your doctor considers it alongside your full health picture.<br/><br/>The 10-year clinical risk score (SG-FRS-2023) is based on established risk factors and has been adapted for the Singapore population. Unlike the genetic score, this number can change as your health indicators improve.</>)},{q:"How should I work with my doctor on this?",a:"Your PRS results have already been shared with you during consultation. Going forward, work closely with your doctor to set personal health targets — for blood pressure, cholesterol, blood sugar, and weight — and review your progress at regular follow-ups. Ask about what lifestyle changes would make the biggest difference for your specific situation."},{q:"Where can I learn more?",a:learnMore}];return (<Wrap id="faq"><Head title="Commonly Asked Questions" icon="❓" suffix="(FAQs)"/>{items.map((it,i)=>(<div key={i} style={{border:`1.5px solid ${S.div}`,borderRadius:12,marginBottom:10,overflow:"hidden"}}><button onClick={()=>setOpen(open===i?null:i)} style={{width:"100%",padding:"16px 18px",border:"none",background:open===i?S.gbg:"#fff",textAlign:"center",fontSize:17,fontWeight:800,color:S.body,cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",gap:8,fontFamily:S.f}}><span style={{flex:1,textAlign:"center"}}>{it.q}</span><span style={{fontSize:22,color:S.g,fontWeight:900,transform:open===i?"rotate(45deg)":"none",transition:"0.2s",flexShrink:0}}>+</span></button>{open===i&&<div style={{padding:"6px 18px 16px",fontSize:16,color:S.sub,lineHeight:1.7,textAlign:"center"}}>{it.a}</div>}</div>))}</Wrap>);}
+function Footer(){return (<footer style={{background:"#1a2530",color:"#ccc",padding:"32px 20px",textAlign:"center",fontSize:15,lineHeight:1.8}}><p style={{margin:"0 auto 16px",color:"#fff",fontWeight:700,fontSize:16,maxWidth:480}}>This website provides general health information and does not replace medical advice from your doctor.</p><div style={{maxWidth:480,margin:"0 auto",borderTop:"1px solid #334",paddingTop:16}}><strong style={{color:"#fff"}}>Contact information:</strong><p style={{margin:"6px auto 0",fontSize:14,lineHeight:1.7,color:"#b0bec5",maxWidth:480}}>Please contact your doctor from the endocrinology department at Tan Tock Seng Hospital if you have any further questions about your health or about this study. Alternatively, you may want to write to a study researcher, Aloysius Chia, Research Fellow at TTSH, at{" "}<a href="mailto:aloysius.wy.chia@nhghealth.com.sg" style={{color:"#80cbc4",textDecoration:"underline"}}>aloysius.wy.chia@nhghealth.com.sg</a>. Refer to the informed consent form for more information.</p></div><div style={{color:"#777",fontSize:12,marginTop:16}}>© 2026 Tan Tock Seng Hospital. All rights reserved.</div><div style={{color:"#777",fontSize:12,marginTop:4}}>Version 1.0 · April 2026</div></footer>);}
 
-  return React.createElement('div', {
-    style: { background: bgGrad, padding: '40px 20px 36px', textAlign: 'center' }
-  },
-    React.createElement('div', { style: { maxWidth: 'var(--max-w)', margin: '0 auto' } },
-      React.createElement('div', { style: { fontSize: 48, marginBottom: 12 } }, isHigh ? '🫀' : '💚'),
-      React.createElement('h1', {
-        style: { fontFamily: 'var(--font-heading)', fontSize: 28, fontWeight: 900, color: 'var(--c-body)', marginBottom: 12, lineHeight: 1.3 }
-      }, wt.title),
-      React.createElement('p', {
-        style: { fontSize: 18, color: 'var(--c-sub)', lineHeight: 1.6, maxWidth: 500, margin: '0 auto 20px' }
-      }, wt.subtitle),
-      React.createElement('a', {
-        href: '#action',
-        style: { display: 'inline-block', background: isHigh ? 'var(--c-orange)' : 'var(--c-green)', color: '#fff', padding: '12px 28px', borderRadius: 30, fontSize: 17, fontWeight: 700, textDecoration: 'none', transition: 'transform 0.15s' }
-      }, wt.cta)
-    )
-  );
+
+/* URL PARAMETER PARSING — replaces prototype mode controls */
+function ga(name,params){if(typeof gtag==='function')gtag('event',name,params);}
+function parseURL(){
+  const sp=new URLSearchParams(window.location.search);
+  const pRaw=sp.get('p'), tRaw=sp.get('t');
+  const p=pRaw!==null?parseInt(pRaw):null;
+  const t=tRaw!==null?parseInt(tRaw):null;
+  const hiRel=(p!==null&&p>=80);
+  const isDM=(p!==null&&t===null);
+  let absLevel='normal';
+  if(t!==null){absLevel=t>20?'high':(t>=10?'intermediate':'normal');}
+  return {hiRel, absLevel, isDM};
 }
 
-// ═══════════════════════════════════════════════
-// GENES SECTION
-// ═══════════════════════════════════════════════
-function GenesSection({ t }) {
-  const cards = [
-    { ...t.genes.dna, emoji: "🧬", color: "var(--c-blue)", bg: "var(--c-blue-bg)" },
-    { ...t.genes.prs, emoji: "🔬", color: "var(--c-purple)", bg: "#f3e5f5" },
-    { ...t.genes.link, emoji: "❤️", color: "var(--c-red)", bg: "var(--c-red-bg)" }
-  ];
-
-  return React.createElement(Section, { id: 'genes' },
-    React.createElement('h2', { style: S.h2 }, t.genes.sectionTitle),
-    cards.map((c, i) =>
-      React.createElement('div', { key: i, style: { ...S.card, borderLeft: `4px solid ${c.color}` } },
-        React.createElement('div', { style: { display: 'flex', alignItems: 'flex-start', gap: 14 } },
-          React.createElement('span', { style: { fontSize: 36, flexShrink: 0 } }, c.emoji),
-          React.createElement('div', null,
-            React.createElement('h3', { style: { ...S.h3, color: c.color } }, c.title),
-            React.createElement('p', { style: { ...S.p, marginBottom: 0 } }, c.text)
-          )
-        )
-      )
-    ),
-    React.createElement('div', {
-      style: { ...S.card, background: 'var(--c-green-bg)', borderLeft: '4px solid var(--c-green)', marginTop: 18 }
-    },
-      React.createElement('p', {
-        style: { ...S.p, marginBottom: 0, fontWeight: 700, color: 'var(--c-green)' }
-      }, '💡 ', t.genes.important)
-    )
-  );
+function App(){
+  const mode=parseURL();
+  function nav(id){document.getElementById(id)?.scrollIntoView({behavior:"smooth"});}
+  // Prototype controls removed for production
+  // const categories=[{label:"Avg Relative",hiRel:false,absLevel:null,isDM:true,group:"Relative risk only (Diabetes patients)"},{label:"High Relative",hiRel:true,absLevel:null,isDM:true,group:"Relative risk only (Diabetes patients)"},{label:"Avg Relative + Normal Absolute",hiRel:false,absLevel:"normal",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"Avg Relative + Intermediate Absolute",hiRel:false,absLevel:"intermediate",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"Avg Relative + High Absolute",hiRel:false,absLevel:"high",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"High Relative + Normal Absolute",hiRel:true,absLevel:"normal",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"High Relative + Intermediate Absolute",hiRel:true,absLevel:"intermediate",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"High Relative + High Absolute",hiRel:true,absLevel:"high",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"}];
+  return (<div style={{fontFamily:S.f,background:"#fefcf8",minHeight:"100vh",maxWidth:640,margin:"0 auto",boxShadow:"0 0 40px rgba(0,0,0,0.06)",color:S.body}}><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/><Nav onNav={nav}/><WelcomeBanner m={mode}/><Divider/><Genes/><Divider/><Action m={mode}/><Divider/><Numbers/><Divider/><PlateSection/><Divider/><FAQ/><Footer/></div>);
 }
 
-// ═══════════════════════════════════════════════
-// RISK RESULTS SECTION (CONDITIONAL)
-// ═══════════════════════════════════════════════
-function BellCurve({ percentile, t }) {
-  const markerX = 20 + (percentile / 100) * 360;
-  return React.createElement('svg', {
-    viewBox: '0 0 400 180', style: { width: '100%', maxWidth: 420, display: 'block', margin: '0 auto' },
-    xmlns: 'http://www.w3.org/2000/svg'
-  },
-    // Gradient bar
-    React.createElement('defs', null,
-      React.createElement('linearGradient', { id: 'riskGrad', x1: '0', y1: '0', x2: '1', y2: '0' },
-        React.createElement('stop', { offset: '0%', stopColor: '#1565c0' }),
-        React.createElement('stop', { offset: '35%', stopColor: '#4caf50' }),
-        React.createElement('stop', { offset: '55%', stopColor: '#fdd835' }),
-        React.createElement('stop', { offset: '75%', stopColor: '#ff9800' }),
-        React.createElement('stop', { offset: '100%', stopColor: '#c62828' })
-      )
-    ),
-    // Bell curve path
-    React.createElement('path', {
-      d: 'M 20 140 C 60 140, 100 130, 140 100 C 160 85, 180 40, 200 30 C 220 40, 240 85, 260 100 C 300 130, 340 140, 380 140',
-      fill: '#e0dcd6', stroke: '#a89f94', strokeWidth: 1.5
-    }),
-    // Gradient bar below
-    React.createElement('rect', { x: 20, y: 145, width: 360, height: 10, rx: 5, fill: 'url(#riskGrad)' }),
-    // Marker line
-    React.createElement('line', { x1: markerX, y1: 20, x2: markerX, y2: 155, stroke: 'var(--c-body)', strokeWidth: 2.5 }),
-    // "You" label
-    React.createElement('text', {
-      x: markerX, y: 14, textAnchor: 'middle', fontSize: 11, fontWeight: 700, fill: 'var(--c-body)', fontFamily: 'var(--font-heading)'
-    }, t.riskResults.bellYou.replace('{p}', percentile)),
-    // Zone labels
-    React.createElement('text', { x: 55, y: 172, textAnchor: 'middle', fontSize: 9, fill: '#666', fontFamily: 'var(--font-body)' },
-      ...t.riskResults.bellLower.split('\n').map((line, i) =>
-        React.createElement('tspan', { key: i, x: 55, dy: i === 0 ? 0 : 11 }, line)
-      )
-    ),
-    React.createElement('text', { x: 200, y: 172, textAnchor: 'middle', fontSize: 9, fill: '#666', fontFamily: 'var(--font-body)' },
-      ...t.riskResults.bellAverage.split('\n').map((line, i) =>
-        React.createElement('tspan', { key: i, x: 200, dy: i === 0 ? 0 : 11 }, line)
-      )
-    ),
-    React.createElement('text', { x: 350, y: 172, textAnchor: 'middle', fontSize: 9, fill: '#666', fontFamily: 'var(--font-body)' },
-      ...t.riskResults.bellHigher.split('\n').map((line, i) =>
-        React.createElement('tspan', { key: i, x: 350, dy: i === 0 ? 0 : 11 }, line)
-      )
-    )
-  );
-}
-
-function RiskResultsSection({ t, params }) {
-  if (!params.hasParams) return null;
-  const isHigh = params.relRisk === 'high';
-  const hasAbs = params.t !== null;
-
-  return React.createElement(Section, { id: 'score' },
-    React.createElement('h2', { style: S.h2 }, t.riskResults.sectionTitle),
-
-    // Absolute risk (if present) — shown first
-    hasAbs && React.createElement('div', {
-      style: { ...S.card, background: params.absRisk === 'high' ? 'var(--c-red-bg)' : params.absRisk === 'intermediate' ? 'var(--c-orange-bg)' : 'var(--c-green-bg)', borderLeft: `4px solid ${params.absRisk === 'high' ? 'var(--c-red)' : params.absRisk === 'intermediate' ? 'var(--c-orange)' : 'var(--c-green)'}`, marginBottom: 18 }
-    },
-      React.createElement('h3', { style: S.h3 }, t.riskResults.absTitle),
-      React.createElement('div', {
-        style: { fontSize: 48, fontWeight: 900, color: params.absRisk === 'high' ? 'var(--c-red)' : params.absRisk === 'intermediate' ? 'var(--c-orange)' : 'var(--c-green)', fontFamily: 'var(--font-heading)', margin: '8px 0' }
-      }, params.t + '%'),
-      React.createElement('p', { style: S.p }, t.riskResults.absExplain.replace('{risk}', params.t)),
-      React.createElement('p', {
-        style: { ...S.p, fontStyle: 'italic', color: 'var(--c-mid)', marginBottom: 0 }
-      }, t.riskResults.absNote)
-    ),
-
-    // Relative risk text
-    React.createElement('div', { style: { ...S.card, borderLeft: `4px solid ${isHigh ? 'var(--c-orange)' : 'var(--c-green)'}` } },
-      React.createElement('h3', { style: S.h3 }, t.riskResults.relTitle),
-      React.createElement('p', { style: S.p },
-        (isHigh ? t.riskResults.relHighText : t.riskResults.relAvgText).replace('{p}', params.p)
-      ),
-      React.createElement('p', {
-        style: { ...S.p, fontStyle: 'italic', color: 'var(--c-mid)', marginBottom: 0 }
-      }, t.riskResults.relNote)
-    ),
-
-    // Bell curve
-    React.createElement('div', { style: { margin: '20px 0 8px' } },
-      React.createElement(BellCurve, { percentile: params.p, t })
-    ),
-
-    // Diabetes note
-    params.isDiabetes && React.createElement('div', {
-      style: { ...S.card, background: 'var(--c-blue-bg)', borderLeft: '4px solid var(--c-blue)', marginTop: 14 }
-    },
-      React.createElement('p', {
-        style: { ...S.p, marginBottom: 0, fontWeight: 600, color: 'var(--c-blue)' }
-      }, '🩺 ', t.riskResults.diabetesNote)
-    )
-  );
-}
-
-// ═══════════════════════════════════════════════
-// ACTION SECTION
-// ═══════════════════════════════════════════════
-function ActionSection({ t, params }) {
-  const intro = params.relRisk === 'high' ? t.action.introHigh : (params.hasParams ? t.action.introAvg : t.action.introFallback);
-
-  function ActionCard({ title, text, children, accent }) {
-    return React.createElement('div', {
-      style: { ...S.card, borderLeft: `4px solid ${accent || 'var(--c-green)'}` }
-    },
-      React.createElement('h3', { style: { ...S.h3, fontSize: 19 } }, title),
-      React.createElement('p', { style: S.p }, text),
-      children
-    );
-  }
-
-  return React.createElement(Section, { id: 'action' },
-    React.createElement('h2', { style: S.h2 }, t.action.sectionTitle),
-    React.createElement('p', { style: { ...S.p, fontSize: 18, fontWeight: 600 } }, intro),
-
-    // Medication
-    React.createElement(ActionCard, { title: t.action.medTitle, text: t.action.medText, accent: 'var(--c-blue)' }),
-
-    // Move
-    React.createElement(ActionCard, { title: t.action.moveTitle, text: t.action.moveText, accent: 'var(--c-green)' },
-      React.createElement('div', { style: { marginTop: 8 } },
-        t.action.moveTips.map((tip, i) =>
-          React.createElement('div', {
-            key: i,
-            style: { display: 'flex', alignItems: 'center', gap: 10, padding: '6px 0', borderTop: i > 0 ? '1px solid #f0ece6' : 'none' }
-          },
-            React.createElement('span', { style: { fontSize: 24, flexShrink: 0 } }, tip.emoji),
-            React.createElement('span', { style: { fontSize: 16, color: 'var(--c-body)' } }, tip.text)
-          )
-        )
-      )
-    ),
-
-    // Eat
-    React.createElement(ActionCard, { title: t.action.eatTitle, text: t.action.eatText, accent: 'var(--c-orange)' }),
-
-    // Sleep
-    React.createElement(ActionCard, { title: t.action.sleepTitle, text: t.action.sleepText, accent: 'var(--c-purple)' }),
-
-    // Avoid
-    React.createElement(ActionCard, { title: t.action.avoidTitle, text: '', accent: 'var(--c-red)' },
-      t.action.avoidItems.map((item, i) =>
-        React.createElement('div', {
-          key: i,
-          style: { display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderTop: i > 0 ? '1px solid #f0ece6' : 'none' }
-        },
-          React.createElement('span', { style: { fontSize: 24, flexShrink: 0 } }, item.emoji),
-          React.createElement('span', { style: { fontSize: 16, color: 'var(--c-body)' } }, item.text)
-        )
-      )
-    )
-  );
-}
-
-// ═══════════════════════════════════════════════
-// KNOW YOUR NUMBERS SECTION
-// ═══════════════════════════════════════════════
-function NumbersSection({ t }) {
-  const [values, setValues] = useState({ hba1c: '', bp: '', ldl: '', egfr: '' });
-
-  const statusColors = { good: 'var(--c-green)', caution: 'var(--c-orange)', alert: 'var(--c-red)' };
-  const statusBg = { good: 'var(--c-green-bg)', caution: 'var(--c-orange-bg)', alert: 'var(--c-red-bg)' };
-  const statusIcons = { good: '●', caution: '■', alert: '▲' };
-  const statusLabels = { good: t.numbers.good, caution: t.numbers.caution, alert: t.numbers.alert };
-
-  return React.createElement(Section, { id: 'numbers' },
-    React.createElement('h2', { style: S.h2 }, t.numbers.sectionTitle),
-    React.createElement('p', { style: S.p }, t.numbers.intro),
-
-    t.numbers.indicators.map(ind => {
-      const val = values[ind.key];
-      const st = getTrafficLight(ind.key, val);
-      return React.createElement('div', {
-        key: ind.key,
-        style: { ...S.card, marginBottom: 16 }
-      },
-        React.createElement('div', {
-          style: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }
-        },
-          React.createElement('div', { style: { flex: 1 } },
-            React.createElement('h3', { style: { ...S.h3, fontSize: 18 } }, ind.name),
-            React.createElement('p', { style: { fontSize: 15, color: 'var(--c-mid)', marginBottom: 6 } }, ind.desc),
-            React.createElement('p', { style: { fontSize: 15, color: 'var(--c-body)', marginBottom: 10, fontStyle: 'italic' } }, ind.why),
-            React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 } },
-              React.createElement('input', {
-                type: 'number',
-                step: ind.key === 'ldl' ? '0.1' : '1',
-                placeholder: ind.unit,
-                value: val,
-                onChange: e => {
-                  setValues({ ...values, [ind.key]: e.target.value });
-                  trackEvent('number_input', { indicator: ind.key, has_value: e.target.value !== '' });
-                },
-                style: { maxWidth: 140 }
-              }),
-              React.createElement('span', { style: { fontSize: 14, color: 'var(--c-light)' } }, ind.unit)
-            ),
-            // Traffic light result
-            st && st !== 'invalid' && React.createElement('div', {
-              style: { display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, background: statusBg[st], marginBottom: 6 }
-            },
-              React.createElement('span', {
-                style: {
-                  width: 26, height: 26, borderRadius: st === 'good' ? '50%' : st === 'caution' ? 4 : 0,
-                  background: statusColors[st], color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 14, fontWeight: 900, flexShrink: 0,
-                  clipPath: st === 'alert' ? 'polygon(50% 0%, 0% 100%, 100% 100%)' : 'none'
-                }
-              }, statusIcons[st]),
-              React.createElement('span', {
-                style: { fontSize: 16, color: statusColors[st], fontWeight: 800 }
-              }, statusLabels[st])
-            ),
-            st === 'invalid' && React.createElement('div', {
-              style: { padding: '10px 14px', borderRadius: 10, background: '#f5f5f5', fontSize: 15, color: '#777', fontWeight: 600, marginBottom: 6 }
-            }, '⚠️ ', t.numbers.invalid),
-            React.createElement('p', { style: { fontSize: 12, color: 'var(--c-light)', margin: '4px 0 0' } }, ind.src)
-          ),
-          React.createElement('span', { style: { fontSize: 44, flexShrink: 0, marginTop: 4 } }, ind.emoji)
-        )
-      );
-    }),
-
-    React.createElement('div', {
-      style: { ...S.card, background: 'var(--c-warm)', marginTop: 8 }
-    },
-      React.createElement('p', {
-        style: { ...S.p, marginBottom: 0, fontSize: 15, fontWeight: 600, color: 'var(--c-mid)' }
-      }, '⚕️ ', t.numbers.disclaimer)
-    )
-  );
-}
-
-// ═══════════════════════════════════════════════
-// HEALTHY PLATE SECTION
-// ═══════════════════════════════════════════════
-function PlateSection({ t, lang }) {
-  const [filter, setFilter] = useState("all");
-  const [plate, setPlate] = useState({ veg: [], grain: [], protein: [] });
-  const [sel, setSel] = useState(null);
-  const [fb, setFb] = useState(null);
-  const [history, setHistory] = useState([]);
-  const max = { veg: 4, grain: 2, protein: 2 };
-  const zoneColors = { veg: '#2e7d32', grain: '#f57f17', protein: '#7b1fa2' };
-  const foods = FOODS_DATA[lang] || FOODS_DATA.en;
-  const filtered = foods.filter(f => filter === "all" ? true : (f.cuisine === filter || f.cuisine === "all"));
-  const used = new Set([...Object.values(plate).flat().map(i => i.id), ...history.filter(h => !h.ok).map(h => h.item.id)]);
-
-  function tapItem(item) {
-    if (sel && sel.id === item.id) { setSel(null); setFb(null); return; }
-    setSel(item); setFb(null);
-    trackEvent('plate_item_tap', { item_id: item.id, item_name: item.name });
-  }
-
-  function tapZone(zone) {
-    if (!sel) { setFb({ type: 'info', msg: t.plate.fbInfo }); return; }
-    if (sel.zone === 'avoid') {
-      setFb({ type: 'avoid', msg: t.plate.fbAvoid.replace('{name}', sel.name).replace('{reason}', sel.why) });
-      setHistory(h => [...h, { item: sel, ok: false }]);
-      setSel(null);
-      trackEvent('plate_avoid_tap', { item_name: sel.name });
-      return;
-    }
-    if (sel.zone !== zone) {
-      setFb({ type: 'wrong', msg: t.plate.fbWrong.replace('{name}', sel.name).replace('{zone}', t.plate.zones[sel.zone]) });
-      return;
-    }
-    if (plate[zone].length >= max[zone]) {
-      setFb({ type: 'info', msg: t.plate.fbFull.replace('{n}', max[zone]) });
-      setSel(null); return;
-    }
-    if (plate[zone].find(i => i.id === sel.id)) {
-      setFb({ type: 'info', msg: t.plate.fbDupe });
-      setSel(null); return;
-    }
-    setPlate({ ...plate, [zone]: [...plate[zone], sel] });
-    setHistory(h => [...h, { item: sel, ok: true }]);
-    setFb({ type: 'good', msg: t.plate.fbGood.replace('{name}', sel.name).replace('{desc}', sel.desc.toLowerCase()) });
-    setSel(null);
-    trackEvent('plate_item_placed', { item_name: sel.name, zone });
-  }
-
-  function checkPlate() {
-    const total = plate.veg.length + plate.grain.length + plate.protein.length;
-    if (!total) { setFb({ type: 'info', msg: t.plate.fbInfo }); return; }
-    const ok = plate.veg.length >= 2 && plate.grain.length >= 1 && plate.protein.length >= 1;
-    if (ok) {
-      const w = history.filter(h => !h.ok).length;
-      const r = history.filter(h => h.ok).length;
-      const caught = w ? `, ${w} identified` : '';
-      setFb({ type: 'done', msg: t.plate.fbDone.replace('{correct}', r).replace('{s}', r > 1 ? 's' : '').replace('{caught}', caught) });
-      trackEvent('plate_check', { result: 'balanced', correct: r, avoided: w });
-    } else {
-      setFb({ type: 'incomplete', msg: t.plate.fbIncomplete });
-      trackEvent('plate_check', { result: 'incomplete' });
-    }
-  }
-
-  function resetPlate() {
-    setPlate({ veg: [], grain: [], protein: [] });
-    setSel(null); setFb(null); setHistory([]);
-  }
-
-  const filterTabs = [
-    { key: 'all', label: t.plate.filterAll },
-    { key: 'chinese', label: t.plate.filterChinese },
-    { key: 'malay', label: t.plate.filterMalay },
-    { key: 'indian', label: t.plate.filterIndian }
-  ];
-
-  // Feedback box colors
-  const fbStyles = {
-    info: { bg: 'var(--c-blue-bg)', border: 'var(--c-blue)', color: 'var(--c-blue)' },
-    good: { bg: 'var(--c-green-bg)', border: 'var(--c-green)', color: 'var(--c-green)' },
-    wrong: { bg: 'var(--c-orange-bg)', border: 'var(--c-orange)', color: 'var(--c-orange)' },
-    avoid: { bg: 'var(--c-red-bg)', border: 'var(--c-red)', color: 'var(--c-red)' },
-    done: { bg: 'var(--c-green-bg)', border: 'var(--c-green)', color: 'var(--c-green)' },
-    incomplete: { bg: 'var(--c-orange-bg)', border: 'var(--c-orange)', color: 'var(--c-orange)' }
-  };
-
-  return React.createElement(Section, { id: 'plate' },
-    React.createElement('h2', { style: S.h2 }, t.plate.sectionTitle),
-    React.createElement('a', {
-      href: t.plate.videoUrl, target: '_blank', rel: 'noopener',
-      style: { display: 'inline-block', fontSize: 17, fontWeight: 700, color: 'var(--c-blue)', textDecoration: 'none', marginBottom: 12 },
-      onClick: () => trackEvent('video_click', { video: 'healthy_plate' })
-    }, t.plate.videoLink),
-    React.createElement('p', { style: S.p }, t.plate.intro),
-
-    // Filter tabs
-    React.createElement('div', { style: { marginBottom: 10 } },
-      React.createElement('span', { style: { fontSize: 14, fontWeight: 600, color: 'var(--c-mid)', marginRight: 8 } }, t.plate.filterLabel),
-      filterTabs.map(tab =>
-        React.createElement('button', {
-          key: tab.key,
-          onClick: () => setFilter(tab.key),
-          style: {
-            ...S.pill,
-            background: filter === tab.key ? 'var(--c-body)' : '#fff',
-            color: filter === tab.key ? '#fff' : 'var(--c-body)',
-            borderColor: filter === tab.key ? 'var(--c-body)' : 'var(--c-divider-light)',
-            fontSize: 14
-          }
-        }, tab.label)
-      )
-    ),
-
-    // Step 1 — food items
-    React.createElement('p', { style: { fontSize: 15, fontWeight: 700, color: 'var(--c-mid)', marginBottom: 6 } }, t.plate.step1),
-    React.createElement('div', {
-      style: { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16, maxHeight: 220, overflowY: 'auto', padding: '4px 0' }
-    },
-      filtered.filter(f => !used.has(f.id)).map(item =>
-        React.createElement('button', {
-          key: item.id,
-          onClick: () => tapItem(item),
-          style: {
-            ...S.pill,
-            background: sel && sel.id === item.id ? (item.zone === 'avoid' ? 'var(--c-red-bg)' : 'var(--c-green-bg)') : '#fff',
-            borderColor: sel && sel.id === item.id ? (item.zone === 'avoid' ? 'var(--c-red)' : 'var(--c-green)') : 'var(--c-divider-light)',
-            display: 'flex', alignItems: 'center', gap: 6
-          }
-        },
-          React.createElement('span', null, item.emoji),
-          React.createElement('span', null, item.name),
-          item.zone === 'avoid' && React.createElement('span', { style: { color: 'var(--c-orange)' } }, '⚠️')
-        )
-      )
-    ),
-
-    // Step 2 — plate zones
-    React.createElement('p', { style: { fontSize: 15, fontWeight: 700, color: 'var(--c-mid)', marginBottom: 8 } }, t.plate.step2),
-    React.createElement('div', {
-      style: { display: 'grid', gridTemplateColumns: '1fr 2fr 1fr', gap: 8, maxWidth: 520, margin: '0 auto 16px' }
-    },
-      ['protein', 'veg', 'grain'].map(zone => {
-        const zc = zoneColors[zone];
-        const items = plate[zone];
-        const mx = max[zone];
-        return React.createElement('div', {
-          key: zone,
-          onClick: () => tapZone(zone),
-          style: {
-            border: `3px solid ${zc}`, borderRadius: 'var(--r)', padding: 10, minHeight: 100,
-            cursor: 'pointer', transition: 'background 0.15s', background: items.length > 0 ? `${zc}11` : '#fff', textAlign: 'center'
-          }
-        },
-          React.createElement('div', {
-            style: { fontSize: 13, fontWeight: 800, color: zc, marginBottom: 4 }
-          }, t.plate.zones[zone]),
-          zone === 'grain' && React.createElement('div', {
-            style: { fontSize: 11, color: 'var(--c-mid)', marginBottom: 4 }
-          }, t.plate.grainSub),
-          React.createElement('div', {
-            style: { fontSize: 12, color: 'var(--c-light)', marginBottom: 6 }
-          }, t.plate.itemsAdded.replace('{n}', items.length).replace('{max}', mx)),
-          items.map(it =>
-            React.createElement('div', {
-              key: it.id,
-              style: { fontSize: 13, padding: '3px 0', borderTop: '1px solid #eee' }
-            }, it.emoji, ' ', it.name)
-          )
-        );
-      })
-    ),
-
-    // Feedback box
-    fb && React.createElement('div', {
-      style: {
-        padding: '12px 16px', borderRadius: 'var(--r)', marginBottom: 14,
-        background: (fbStyles[fb.type] || fbStyles.info).bg,
-        borderLeft: `4px solid ${(fbStyles[fb.type] || fbStyles.info).border}`,
-        color: (fbStyles[fb.type] || fbStyles.info).color,
-        fontSize: 16, fontWeight: 600, lineHeight: 1.5
-      }
-    },
-      fb.msg,
-      fb.type === 'avoid' && React.createElement('p', {
-        style: { fontSize: 14, fontWeight: 500, color: 'var(--c-mid)', marginTop: 8, fontStyle: 'italic' }
-      }, t.plate.moderationNote)
-    ),
-
-    // Buttons
-    React.createElement('div', { style: { display: 'flex', gap: 10, flexWrap: 'wrap' } },
-      React.createElement('button', {
-        onClick: checkPlate,
-        style: { background: 'var(--c-green)', color: '#fff', border: 'none', borderRadius: 10, padding: '12px 24px', fontSize: 16, fontWeight: 700 }
-      }, t.plate.checkBtn),
-      React.createElement('button', {
-        onClick: resetPlate,
-        style: { background: '#fff', color: 'var(--c-mid)', border: '2px solid var(--c-divider-light)', borderRadius: 10, padding: '12px 24px', fontSize: 16, fontWeight: 700 }
-      }, t.plate.resetBtn)
-    )
-  );
-}
-
-// ═══════════════════════════════════════════════
-// FAQ SECTION
-// ═══════════════════════════════════════════════
-function FAQSection({ t }) {
-  const [open, setOpen] = useState(null);
-  return React.createElement(Section, { id: 'faq' },
-    React.createElement('h2', { style: S.h2 }, t.faq.sectionTitle),
-    t.faq.items.map((item, i) =>
-      React.createElement('div', {
-        key: i,
-        style: { ...S.card, cursor: 'pointer', marginBottom: 10, userSelect: 'none' },
-        onClick: () => {
-          setOpen(open === i ? null : i);
-          trackEvent('faq_toggle', { question_index: i, action: open === i ? 'close' : 'open' });
-        }
-      },
-        React.createElement('div', {
-          style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' }
-        },
-          React.createElement('h3', { style: { ...S.h3, marginBottom: 0, fontSize: 17, flex: 1 } }, item.q),
-          React.createElement('span', {
-            style: { fontSize: 20, color: 'var(--c-mid)', transform: open === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s', flexShrink: 0, marginLeft: 8 }
-          }, '▾')
-        ),
-        open === i && React.createElement('p', {
-          style: { ...S.p, marginTop: 10, marginBottom: 0, paddingTop: 10, borderTop: '1px solid #eee' }
-        }, item.a)
-      )
-    )
-  );
-}
-
-// ═══════════════════════════════════════════════
-// FOOTER
-// ═══════════════════════════════════════════════
-function Footer({ t }) {
-  const year = new Date().getFullYear();
-  return React.createElement('footer', {
-    style: { background: '#3e352d', color: '#e8e2db', padding: '36px 20px' }
-  },
-    React.createElement('div', { style: { maxWidth: 'var(--max-w)', margin: '0 auto' } },
-      React.createElement('h3', {
-        style: { fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 14 }
-      }, t.footer.resourcesTitle),
-      t.footer.resources.map((r, i) =>
-        React.createElement('a', {
-          key: i, href: r.url, target: '_blank', rel: 'noopener',
-          style: { display: 'block', color: '#90caf9', fontSize: 15, marginBottom: 8, textDecoration: 'none' },
-          onClick: () => trackEvent('resource_click', { resource_name: r.name })
-        }, '🔗 ', r.name)
-      ),
-      React.createElement('hr', { style: { border: 'none', borderTop: '1px solid #5a5047', margin: '20px 0' } }),
-      React.createElement('p', { style: { fontSize: 14, color: '#c4bdb5', lineHeight: 1.6, marginBottom: 10 } }, t.footer.disclaimer),
-      React.createElement('p', { style: { fontSize: 14, color: '#c4bdb5', lineHeight: 1.6, marginBottom: 10 } }, t.footer.contact),
-      React.createElement('p', { style: { fontSize: 13, color: '#8a7f73' } }, t.footer.copyright.replace('{year}', year))
-    )
-  );
-}
-
-// ═══════════════════════════════════════════════
-// APP ROOT
-// ═══════════════════════════════════════════════
-function App() {
-  const [lang, setLang] = useState('en');
-  const params = getParams();
-  const t = T[lang];
-
-  // Set html lang attribute
-  useEffect(() => {
-    document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
-  }, [lang]);
-
-  return React.createElement(React.Fragment, null,
-    React.createElement(NavBar, { lang, setLang, t, params }),
-    React.createElement(WelcomeBanner, { t, params }),
-    React.createElement(GenesSection, { t }),
-    React.createElement(RiskResultsSection, { t, params }),
-    React.createElement(ActionSection, { t, params }),
-    React.createElement(NumbersSection, { t }),
-    React.createElement(PlateSection, { t, lang }),
-    React.createElement(FAQSection, { t }),
-    React.createElement(Footer, { t })
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
