@@ -107,13 +107,32 @@ a { color: var(--c-blue); }
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="root">
+  <div style="max-width:640px;margin:60px auto;padding:0 20px;text-align:center;font-family:Arial,sans-serif;color:#555">
+    <p style="font-size:18px">Loading Heart Health Companion…</p>
+    <p style="font-size:14px;margin-top:12px">If this page does not load, please try refreshing or using a different browser (Chrome, Safari, or Edge).</p>
+  </div>
+</div>
 
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script>
+// Global error handler — if React fails to mount, show diagnostic info
+window.onerror = function(msg, src, line, col, err) {
+  var root = document.getElementById('root');
+  if (root && !root.querySelector('[data-reactroot]')) {
+    root.innerHTML = '<div style="max-width:640px;margin:60px auto;padding:20px;font-family:Arial,sans-serif">' +
+      '<h2 style="color:#b71c1c">Something went wrong</h2>' +
+      '<p style="color:#555">This page could not load properly. Please try:</p>' +
+      '<ul style="color:#555;margin:12px 0"><li>Refreshing the page</li><li>Using Chrome, Safari, or Edge</li><li>Checking your internet connection</li></ul>' +
+      '<p style="color:#999;font-size:12px;margin-top:20px">Error: ' + msg + ' (line ' + line + ')</p></div>';
+  }
+};
+</script>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js" onerror="document.getElementById('root').innerHTML='<p style=\'text-align:center;padding:60px 20px;font-family:Arial;color:#b71c1c\'>Failed to load required scripts. Please check your internet connection and refresh.</p>'"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script crossorigin src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
 
-<script type="text/babel" data-type="module">
+<script type="text/babel">
 const { useState, useEffect, useRef, useCallback } = React;
 
 // ═══════════════════════════════════════════════
