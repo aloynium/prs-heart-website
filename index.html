@@ -87,7 +87,7 @@ function Numbers(){const[vals,setVals]=useState({hba1c:"",bp:"",ldl:"",egfr:""})
 
 function PlateSection(){
   const [filter,setFilter]=useState("all");const [plate,setPlate]=useState({veg:[],grain:[],protein:[]});const [sel,setSel]=useState(null);const [fb,setFb]=useState(null);const [history,setHistory]=useState([]);
-  const max={veg:4,grain:2,protein:2};const zc={veg:"#2e7d32",grain:"#f57f17",protein:"#7b1fa2"};const zl={veg:"Fruit & Veg",grain:"Rice, Noodles & Bread",protein:"Meat and Others"};
+  const max={veg:4,grain:2,protein:2};const zc={veg:"#2e7d32",grain:"#f57f17",protein:"#7b1fa2"};const zl={veg:"Fruit & Veg",grain:"Rice, Noodles & Bread",protein:"Protein, Meat and Others"};
   const filtered=FOODS.filter(f=>filter==="all"?true:(f.cuisine===filter||f.cuisine==="all"));
   const used=new Set([...Object.values(plate).flat().map(i=>i.id),...history.filter(h=>!h.ok).map(h=>h.item.id)]);
   function tapItem(item){if(sel&&sel.id===item.id){setSel(null);setFb(null);return;}setSel(item);setFb(null);}
@@ -107,7 +107,7 @@ function PlateSection(){
   // Label boxes — large, in corners
   const gBox={x:0,y:18,w:215,h:88};   // grain: top-left
   const vBox={x:350,y:8,w:208,h:70};   // veg: top-right
-  const pBox={x:0,y:340,w:180,h:70};   // meat: bottom-left
+  const pBox={x:0,y:340,w:230,h:70};   // protein: bottom-left
   // Line anchor points (bottom-center of top labels, top-center of bottom label)
   const gAnc={x:gBox.x+gBox.w/2, y:gBox.y+gBox.h};
   const vAnc={x:vBox.x+vBox.w/2, y:vBox.y+vBox.h};
@@ -151,15 +151,15 @@ function PlateSection(){
           <text x={vBox.x+vBox.w/2} y={vBox.y+28} textAnchor="middle" fontSize="18" fontWeight="900" fill={zc.veg} fontFamily={S.h}>½ Fruit & Veg</text>
           <text x={vBox.x+vBox.w/2} y={vBox.y+52} textAnchor="middle" fontSize="14" fontWeight="700" fill={S.mid} fontFamily={S.f}>{plate.veg.length} of {max.veg} items</text>
 
-          {/* Meat and Others — bottom-left */}
+          {/* Protein, Meat and Others — bottom-left */}
           <rect x={pBox.x} y={pBox.y} width={pBox.w} height={pBox.h} rx={12} fill="#fff" stroke={zc.protein} strokeWidth="2.5" onClick={()=>tapZone("protein")} style={{cursor:"pointer"}}/>
-          <text x={pBox.x+pBox.w/2} y={pBox.y+28} textAnchor="middle" fontSize="18" fontWeight="900" fill={zc.protein} fontFamily={S.h}>¼ Meat and Others</text>
+          <text x={pBox.x+pBox.w/2} y={pBox.y+28} textAnchor="middle" fontSize="16" fontWeight="900" fill={zc.protein} fontFamily={S.h}>¼ Protein, Meat and Others</text>
           <text x={pBox.x+pBox.w/2} y={pBox.y+52} textAnchor="middle" fontSize="14" fontWeight="700" fill={S.mid} fontFamily={S.f}>{plate.protein.length} of {max.protein} items</text>
         </svg>
       </div>
 
       {/* Category item boxes below plate */}
-      <div style={{display:"grid",gridTemplateColumns:"4fr 4fr 3fr",gap:10,maxWidth:560,margin:"0 auto 14px",alignItems:"start"}}>
+      <div style={{display:"grid",gridTemplateColumns:"4fr 3fr 4fr",gap:10,maxWidth:560,margin:"0 auto 14px",alignItems:"start"}}>
         <div onClick={()=>tapZone("grain")} style={{cursor:"pointer"}}>
           <div style={{height:hdrH,display:"flex",flexDirection:"column",justifyContent:"flex-end",paddingBottom:4}}>
             <div style={{fontSize:16,fontWeight:900,color:zc.grain,fontFamily:S.h}}>¼ Rice, Noodles & Bread</div>
@@ -183,7 +183,7 @@ function PlateSection(){
         </div>
         <div onClick={()=>tapZone("protein")} style={{cursor:"pointer"}}>
           <div style={{height:hdrH,display:"flex",flexDirection:"column",justifyContent:"flex-end",paddingBottom:4}}>
-            <div style={{fontSize:17,fontWeight:900,color:zc.protein,fontFamily:S.h}}>¼ Meat and Others</div>
+            <div style={{fontSize:15,fontWeight:900,color:zc.protein,fontFamily:S.h}}>¼ Protein, Meat and Others</div>
             <div style={{fontSize:14,fontWeight:700,color:S.mid}}>{plate.protein.length} of {max.protein} items added</div>
           </div>
           <div style={{border:`2px solid ${zc.protein}50`,borderRadius:12,minHeight:56,padding:"8px 6px",display:"flex",flexWrap:"wrap",gap:4,background:"#fff",justifyContent:"center",alignContent:"flex-start"}}>
@@ -203,30 +203,28 @@ function Res({href,name,desc}){return (<div style={{marginBottom:14}}><a href={h
 function FAQ(){const[open,setOpen]=useState(null);const learnMore=(<div style={{textAlign:"left",maxWidth:460,margin:"0 auto"}}><p style={{marginBottom:14}}>Here are some useful resources:</p><div style={{marginBottom:10}}><strong>General health information:</strong></div><Res href="https://hpb.gov.sg" name="Health Promotion Board" desc="Singapore's national agency for health promotion — diet, exercise, and wellness resources."/><Res href="https://www.healthhub.sg/programmes/heart-health" name="HealthHub — Heart Health" desc="Heart health programmes, articles, and tools from Singapore's health portal."/><Res href="https://activesg.gov.sg/home" name="ActiveSG" desc="Free and affordable sports facilities, fitness programmes, and community activities across Singapore."/><div style={{marginTop:18,marginBottom:10}}><strong>CVD-related information:</strong></div><Res href="https://www.myheart.org.sg" name="Singapore Heart Foundation" desc="Patient resources on heart disease prevention, symptoms, and living with heart conditions."/><Res href="https://www.nhcs.com.sg" name="National Heart Centre Singapore" desc="Singapore's specialist heart centre — patient education on heart conditions and treatments."/><Res href="https://www.ace-hta.gov.sg/healthcare-professionals/ace-repository-for-clinical-guidelines/" name="ACE Clinical Guidelines" desc="Evidence-based clinical guidelines from Singapore's Agency for Care Effectiveness."/><div style={{marginTop:18,marginBottom:10}}><strong>Precision medicine:</strong></div><Res href="https://www.npm.sg" name="PRECISE — National Precision Medicine" desc="Singapore's national programme using genomic data to improve health outcomes for the local population."/></div>);const items=[{q:"Can I change my genetic risk?",a:"No — your genes don't change. But you can lower your overall heart disease risk through diet, exercise, medication, and healthy habits. Many people with higher genetic risk never develop heart disease because they manage other risk factors well."},{q:"Should my family members get tested?",a:"Heart disease risk can run in families. If you have a higher genetic risk, it may be worth discussing genetic testing with your family members' doctors. Family members benefit from healthy lifestyle changes regardless."},{q:"How accurate are these scores?",a:(<>The polygenic risk score is an estimate based on current science — it captures a meaningful portion of genetic risk but not all of it. Your doctor considers it alongside your full health picture.<br/><br/>The 10-year clinical risk score (SG-FRS-2023) is based on established risk factors and has been adapted for the Singapore population. Unlike the genetic score, this number can change as your health indicators improve.</>)},{q:"How should I work with my doctor on this?",a:"Your PRS results have already been shared with you during consultation. Going forward, work closely with your doctor to set personal health targets — for blood pressure, cholesterol, blood sugar, and weight — and review your progress at regular follow-ups. Ask about what lifestyle changes would make the biggest difference for your specific situation."},{q:"Where can I learn more?",a:learnMore}];return (<Wrap id="faq"><Head title="Commonly Asked Questions" icon="❓" suffix="(FAQs)"/>{items.map((it,i)=>(<div key={i} style={{border:`1.5px solid ${S.div}`,borderRadius:12,marginBottom:10,overflow:"hidden"}}><button onClick={()=>setOpen(open===i?null:i)} style={{width:"100%",padding:"16px 18px",border:"none",background:open===i?S.gbg:"#fff",textAlign:"center",fontSize:17,fontWeight:800,color:S.body,cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",gap:8,fontFamily:S.f}}><span style={{flex:1,textAlign:"center"}}>{it.q}</span><span style={{fontSize:22,color:S.g,fontWeight:900,transform:open===i?"rotate(45deg)":"none",transition:"0.2s",flexShrink:0}}>+</span></button>{open===i&&<div style={{padding:"6px 18px 16px",fontSize:16,color:S.sub,lineHeight:1.7,textAlign:"center"}}>{it.a}</div>}</div>))}</Wrap>);}
 function Footer(){return (<footer style={{background:"#1a2530",color:"#ccc",padding:"32px 20px",textAlign:"center",fontSize:15,lineHeight:1.8}}><p style={{margin:"0 auto 16px",color:"#fff",fontWeight:700,fontSize:16,maxWidth:480}}>This website provides general health information and does not replace medical advice from your doctor.</p><div style={{maxWidth:480,margin:"0 auto",borderTop:"1px solid #334",paddingTop:16}}><strong style={{color:"#fff"}}>Contact information:</strong><p style={{margin:"6px auto 0",fontSize:14,lineHeight:1.7,color:"#b0bec5",maxWidth:480}}>Please contact your doctor from the endocrinology department at Tan Tock Seng Hospital if you have any further questions about your health or about this study. Alternatively, you may want to write to a study researcher, Aloysius Chia, Research Fellow at TTSH, at{" "}<a href="mailto:aloysius.wy.chia@nhghealth.com.sg" style={{color:"#80cbc4",textDecoration:"underline"}}>aloysius.wy.chia@nhghealth.com.sg</a>. Refer to the informed consent form for more information.</p></div><div style={{color:"#777",fontSize:12,marginTop:16}}>© 2026 Tan Tock Seng Hospital. All rights reserved.</div><div style={{color:"#777",fontSize:12,marginTop:4}}>Version 1.0 · April 2026</div></footer>);}
 
-
-/* URL PARAMETER PARSING — replaces prototype mode controls */
-function ga(name,params){if(typeof gtag==='function')gtag('event',name,params);}
+/* URL PARAMETER PARSING — replaces prototype controls */
+function ga(n,p){if(typeof gtag==='function')gtag('event',n,p);}
 function parseURL(){
   const sp=new URLSearchParams(window.location.search);
-  const pRaw=sp.get('p'), tRaw=sp.get('t');
+  const pRaw=sp.get('p'),tRaw=sp.get('t');
   const p=pRaw!==null?parseInt(pRaw):null;
   const t=tRaw!==null?parseInt(tRaw):null;
   const hiRel=(p!==null&&p>=80);
   const isDM=(p!==null&&t===null);
   let absLevel='normal';
   if(t!==null){absLevel=t>20?'high':(t>=10?'intermediate':'normal');}
-  return {hiRel, absLevel, isDM};
+  return {hiRel,absLevel,isDM};
 }
+
 
 function App(){
   const mode=parseURL();
   function nav(id){document.getElementById(id)?.scrollIntoView({behavior:"smooth"});}
-  // Prototype controls removed for production
-  // const categories=[{label:"Avg Relative",hiRel:false,absLevel:null,isDM:true,group:"Relative risk only (Diabetes patients)"},{label:"High Relative",hiRel:true,absLevel:null,isDM:true,group:"Relative risk only (Diabetes patients)"},{label:"Avg Relative + Normal Absolute",hiRel:false,absLevel:"normal",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"Avg Relative + Intermediate Absolute",hiRel:false,absLevel:"intermediate",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"Avg Relative + High Absolute",hiRel:false,absLevel:"high",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"High Relative + Normal Absolute",hiRel:true,absLevel:"normal",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"High Relative + Intermediate Absolute",hiRel:true,absLevel:"intermediate",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"},{label:"High Relative + High Absolute",hiRel:true,absLevel:"high",isDM:false,group:"Relative + Absolute risk (Non-diabetes patients)"}];
   return (<div style={{fontFamily:S.f,background:"#fefcf8",minHeight:"100vh",maxWidth:640,margin:"0 auto",boxShadow:"0 0 40px rgba(0,0,0,0.06)",color:S.body}}><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/><Nav onNav={nav}/><WelcomeBanner m={mode}/><Divider/><Genes/><Divider/><Action m={mode}/><Divider/><Numbers/><Divider/><PlateSection/><Divider/><FAQ/><Footer/></div>);
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 </body>
 </html>
